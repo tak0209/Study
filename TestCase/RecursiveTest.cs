@@ -114,7 +114,7 @@ namespace TestCase
             root.left = new Node(5);                    //         / \
             root.right = new Node(8);                   //        5   8
             root.left.right = new Node(6);              //         \
-            //          6
+                                                        //          6
             Recursive myRecursive = new Recursive();
             var LCAnode = myRecursive.FindLCA(root, 6, 8);
             Assert.AreEqual(7, LCAnode.value);
@@ -124,6 +124,19 @@ namespace TestCase
 
             LCAnode = myRecursive.FindLCA(root, 15, 6);
             Assert.AreEqual(5, LCAnode.value);
+        }
+
+        [TestMethod]
+        public void IsBSTTreeTest()
+        {
+            Node root = new Node(7);                    //          7
+            root.left = new Node(5);                    //         / \
+            root.right = new Node(8);                   //        5   8
+            //root.left.right = new Node(6);              //         \
+            //                                            //          6
+            
+            Recursive myRecursive = new Recursive();
+            var LCAnode = myRecursive.isBST(root);
         }
     }
 }

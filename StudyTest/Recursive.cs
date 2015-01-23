@@ -243,5 +243,22 @@ namespace StudyTest
 
             return node;
         }
+
+        private static Node prev = null;
+
+        public  bool isBST(Node root)
+        {        
+            if (root == null)
+                return true;
+
+            if (!isBST(root.left))
+                return false;
+
+            if (prev != null && root.value <= prev.value)
+                return false;
+
+            prev = root;
+            return isBST(root.right);
+        }
     }
 }
