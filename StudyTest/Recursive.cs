@@ -185,6 +185,27 @@ namespace StudyTest
         //*Alt solution with explaination  
         //http://www.growingwiththeweb.com/2013/06/algorithm-all-permutations-of-set.html 
 
+
+        //*
+        // 1> pick one char from the current digit
+        // 2> add char to the final string
+        // 3> get the next digit from input and repeat from step 1 until all digits are processed in current run
+        // 4> remove the last char from string to open slot for next choice of char
+        // 5> iterate through the next char for current digit
+        //*
+        //  A/B         C/D         E/F
+        //   _           _           _
+        //
+        //  A: R(0,"A")
+        //      C: R(1, "AC")
+        //          E: R(2, "ACE")  call and print and return  (this will end the recursive for this run, then it will process the line after the recursive)
+        //          E: R(2, "ACF")  statement after recursive will remove 1 char to free up the space and new iteration will pick up the next choice of char
+        //
+        //      Back to C:R(1, "AC")    completed the recursive and remove 1 char to free up the next space
+        //              C:R(1, "AD")
+        //                  E: R(2, "ADE")
+        //                  E: R(2, "ADF")
+        //*
         public void getAllPhone(string phonenumber, int currentDig, string s, Dictionary<char, string> map)
         {
             if (phonenumber.Length == s.Length)
@@ -198,7 +219,7 @@ namespace StudyTest
             {
                 s += map[dig][i];
                 getAllPhone(phonenumber, currentDig + 1, s, map);
-                s = s.Substring(0, s.Length - 1);
+                s = s.Substring(0, s.Length - 1);                       //This is not efficient, we can use StringBuilder to improve?               
             }
 
         }
