@@ -202,5 +202,25 @@ namespace StudyTest
             }
 
         }
+
+        public Node FindLCA(Node node, int v1, int v2)
+        {
+            if (node == null)
+            {
+                return null;
+            }
+
+            if (node.value > v1 && node.value > v2)
+            {
+                return FindLCA(node.left, v1, v2);
+            }
+
+            if (node.value < v1 && node.value < v2)
+            {
+                return FindLCA(node.right, v1, v2);
+            }
+
+            return node;
+        }
     }
 }
