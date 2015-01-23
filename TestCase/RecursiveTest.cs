@@ -106,5 +106,24 @@ namespace TestCase
             Recursive myRecursive = new Recursive();
             myRecursive.getAllPhone("234", 0, "", map);
         }
+
+        [TestMethod]
+        public void LCATreeTest()
+        {
+            Node root = new Node(7);                    //          7
+            root.left = new Node(5);                    //         / \
+            root.right = new Node(8);                   //        5   8
+            root.left.right = new Node(6);              //         \
+            //          6
+            Recursive myRecursive = new Recursive();
+            var LCAnode = myRecursive.FindLCA(root, 6, 8);
+            Assert.AreEqual(7, LCAnode.value);
+
+            LCAnode = myRecursive.FindLCA(root, 5, 6);
+            Assert.AreEqual(5, LCAnode.value);
+
+            LCAnode = myRecursive.FindLCA(root, 15, 6);
+            Assert.AreEqual(5, LCAnode.value);
+        }
     }
 }
