@@ -154,5 +154,21 @@ namespace TestCase
             Recursive.perm6("", "abc");
         }
         
+        [TestMethod]
+        public void PowerSetTest()
+        {
+            List<string> testResult = new List<string>();
+            Recursive.powerSet("", "abc",testResult, 1);
+        }
+
+
+        [TestMethod]
+        public void PS()
+        {
+            List<string> testResult = new List<string>();
+            Recursive.powerSet2(new int[] { 1, 2, 3 }, 2, "", testResult);
+
+        }
     }
 }
+    

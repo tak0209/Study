@@ -31,14 +31,14 @@ namespace TestCase
             //         5 -  4 
 
             GraphNode g = SetupGraph();
-            //Graph.BFS(g);
+            Graph.BFS(g);
         }
 
         [TestMethod]
         public void TestDFS()
         {
             GraphNode g = SetupGraph();
-            //Graph.DFS(g);
+            Graph.DFS(g);
         }
     }
 }

@@ -260,6 +260,7 @@ namespace StudyTest
         }
 
         //DFS algo
+        //http://exceptional-code.blogspot.com/2012/09/generating-all-permutations.html
         public static void perm5(string input, string result, bool[] visited, List<string> results)
         {
             if (result.Length == input.Length)
@@ -291,6 +292,32 @@ namespace StudyTest
             {
                 perm6(prefix + input[i], input.Substring(0, i) + input.Substring(i + 1));
             }
+        }
+
+        public static void powerSet(string prefix, string input, List<string> results, int idx)
+        {
+            if (prefix.Length==3)
+            {
+                return;
+            }
+
+            results.Add(prefix);
+            powerSet(input.Substring(0, idx), input, results, idx+1);
+        }
+
+
+        //http://www.careercup.com/question?id=4356911
+        public static void powerSet2(int[] elements, int n, string end,  List<string> r)
+        {
+            if (n < 0)
+            {
+                Debug.Print(" " + end);
+                return;
+            }
+            string newend = elements[n].ToString() + ", " + end;
+            r.Add(newend);
+            powerSet2(elements, n - 1, end, r);
+            powerSet2(elements, n - 1, newend, r);
         }
     }
 }
