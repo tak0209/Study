@@ -131,12 +131,28 @@ namespace TestCase
         {
             Node root = new Node(7);                    //          7
             root.left = new Node(5);                    //         / \
-            root.right = new Node(8);                   //        5   8
+            root.right = new Node(1);                   //        5   8
             //root.left.right = new Node(6);              //         \
             //                                            //          6
             
             Recursive myRecursive = new Recursive();
-            var LCAnode = myRecursive.isBST(root);
+            Assert.IsTrue(myRecursive.isBST(root, null));
         }
+
+        [TestMethod]
+        public void CombTest()
+        {
+            bool[] v = new bool[100];
+            List<string> results = new List<string>();
+
+            Recursive.perm5("abc", "", v, results);            
+        }
+
+        [TestMethod]
+        public void CombTest2()
+        {         
+            Recursive.perm6("", "abc");
+        }
+        
     }
 }

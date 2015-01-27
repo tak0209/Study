@@ -124,7 +124,6 @@ namespace StudyTest
             }
         }
 
-
         //http://learnprogramming.machinesentience.com/java_permutations_recursion/
         /*The algorithm is:
 
@@ -215,7 +214,7 @@ namespace StudyTest
             }
 
             char dig = phonenumber[currentDig];
-            for (int i=0; i< map[dig].Count(); i ++)
+            for (int i = 0; i < map[dig].Count(); i++)
             {
                 s += map[dig][i];
                 getAllPhone(phonenumber, currentDig + 1, s, map);
@@ -244,21 +243,54 @@ namespace StudyTest
             return node;
         }
 
-        private static Node prev = null;
 
-        public  bool isBST(Node root)
-        {        
+        public bool isBST(Node root, Node prev)
+        {
             if (root == null)
                 return true;
 
-            if (!isBST(root.left))
+            if (!isBST(root.left, prev))
                 return false;
 
             if (prev != null && root.value <= prev.value)
                 return false;
 
             prev = root;
-            return isBST(root.right);
+            return isBST(root.right, prev);
+        }
+
+        //DFS algo
+        public static void perm5(string input, string result, bool[] visited, List<string> results)
+        {
+            if (result.Length == input.Length)
+            {
+                results.Add(result);
+            }
+            else
+            {
+                for (int i = 0; i < input.Length; i++)
+                {
+                    if (!visited[i])
+                    {
+                        visited[i] = true;
+                        perm5(input, result + input[i].ToString(), visited, results);
+                        visited[i] = false;
+                    }
+                }
+            }
+        }
+
+        public static void perm6(string prefix, string input)
+        {
+            if (input.Length == 0)
+            {
+                Debug.Print(prefix);
+            }
+
+            for (int i = 0; i < input.Length; i++)
+            {
+                perm6(prefix + input[i], input.Substring(0, i) + input.Substring(i + 1));
+            }
         }
     }
 }
