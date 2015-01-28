@@ -55,42 +55,38 @@ namespace TestCase
             Assert.AreEqual(13, result);
         }
 
+        //[TestMethod]
+        //public void PremWithSwapTest()
+        //{
+        //    Recursive myRecursive = new Recursive();
+        //    myRecursive.PermWithSwap("ab".ToCharArray(), 0);
+        //}
+
+        //[TestMethod]
+        //public void PremYieldTest()
+        //{
+        //    Recursive myRecursive = new Recursive();
+        //    var test = myRecursive.permYield("abc");     
+        //    foreach (string s in test)
+        //    {
+        //        Debug.Print(s);
+        //    }
+        //}
+
         [TestMethod]
-        public void AllPremTest()
+        public void PremWithPrefixTest()
         {
             Recursive myRecursive = new Recursive();
-            myRecursive.AllPermutation("ab".ToCharArray(), 0);
+            myRecursive.permWithPrefix("", "abc");
         }
 
         [TestMethod]
-        public void PremTest()
+        public void permWithDFSTest()
         {
-            Recursive myRecursive = new Recursive();
-            var test = myRecursive.permute("abc");     
-            foreach (string s in test)
-            {
-                Debug.Print(s);
-            }
-        }
+            bool[] v = new bool[100];
+            List<string> results = new List<string>();
 
-
-        [TestMethod]
-        public void PremTest2()
-        {
-            Recursive myRecursive = new Recursive();
-            List<string> result = new List<string>();
-            var test = myRecursive.Permutation(result, "", "abc");
-            foreach (string s in test)
-            {
-                Debug.Print(s);
-            }
-        }
-
-        [TestMethod]
-        public void Prem2Test()
-        {
-            Recursive myRecursive = new Recursive();
-            myRecursive.permuteString("", "abc");
+            Recursive.permWithDFS("abc", "", v, results);
         }
 
         [TestMethod]
@@ -138,27 +134,12 @@ namespace TestCase
             Recursive myRecursive = new Recursive();
             Assert.IsTrue(myRecursive.isBST(root, null));
         }
-
-        [TestMethod]
-        public void CombTest()
-        {
-            bool[] v = new bool[100];
-            List<string> results = new List<string>();
-
-            Recursive.perm5("abc", "", v, results);            
-        }
-
-        [TestMethod]
-        public void CombTest2()
-        {         
-            Recursive.perm6("", "abc");
-        }
         
         [TestMethod]
         public void PowerSetTest()
         {
             List<string> testResult = new List<string>();
-            Recursive.powerSet("", "abc",testResult, 1);
+            //Recursive.powerSet("", "abc",testResult, 1);
         }
 
 
@@ -168,6 +149,20 @@ namespace TestCase
             List<string> testResult = new List<string>();
             Recursive.powerSet2(new int[] { 1, 2, 3 }, 2, "", testResult);
 
+        }
+
+        [TestMethod]
+        public void PS2Test()
+        {
+            List<string> powerSet = new List<string>();
+            Recursive.FindPowerSet("123", 0, powerSet);
+        }
+
+        [TestMethod]
+        public void PS3Test()
+        {
+            List<string> powerSet = new List<string>();
+            Recursive.PS3("", "123", powerSet);
         }
     }
 }

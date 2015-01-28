@@ -71,7 +71,8 @@ namespace StudyTest
             }
         }
 
-        public void AllPermutation(char[] s, int idx)
+        #region unused
+        public void PermWithSwap(char[] s, int idx)
         {
             if (s.Length == idx)
             {
@@ -83,7 +84,7 @@ namespace StudyTest
             {
                 if (i != idx)
                     swap(ref s[idx], ref s[i]);
-                AllPermutation(s, idx + 1);
+                PermWithSwap(s, idx + 1);
                 if (i != idx)
                     swap(ref s[idx], ref s[i]);
                 //result += s[i];                 
@@ -99,12 +100,12 @@ namespace StudyTest
 
         }
 
-        public IEnumerable<string> permute(string word)
+        public IEnumerable<string> permYield(string word)
         {
             if (word.Length > 1)
             {
                 char character = word[0];
-                foreach (string subPermute in permute(word.Substring(1)))
+                foreach (string subPermute in permYield(word.Substring(1)))
                 {
                     for (int index = 0; index <= subPermute.Length; index++)
                     {
@@ -124,6 +125,7 @@ namespace StudyTest
             }
         }
 
+       
         //http://learnprogramming.machinesentience.com/java_permutations_recursion/
         /*The algorithm is:
 
@@ -142,48 +144,21 @@ namespace StudyTest
         ar -> bar, abr, arb
         ra -> bra, rba, rab*/
 
-        public List<String> Permutation(List<string> result, string prefix, string s)
-        {
-            int n = s.Length;
-            if (n == 0)
-            {
-                result.Add(prefix);
-            }
-            else
-            {
-                for (int i = 0; i < n; i++)
-                    Permutation(result, prefix + s[i], s.Substring(0, i) + s.Substring(i + 1));
-            }
-            return result;
-        }
-
-        //The first parameter, called prefix increases in length as the function 
-        //recurses, a character is added to the prefix, and 
-        //then that becomes the new prefix for the next recursive call.  
-
-
-        //The second parameter str gets smaller and smaller each time the method 
-        //recurses because str.substring(0,i) nabs the string from position 0 to i, 
-        //then cuts off one char, then pastes on substring (i+1) to the end. 
-
-        public void permuteString(String prefix, String input)
-        {
-            if (input.Length <= 1)
-                Debug.Print(prefix + input);
-            else
-            {
-                for (int i = 0; i < input.Length; i++)
-                {
-                    input = input.Substring(0, i) + input.Substring(i + 1);
-                    permuteString(prefix + input[i], input);
-                }
-            }
-        }
-
-
-        //*Alt solution with explaination  
-        //http://www.growingwiththeweb.com/2013/06/algorithm-all-permutations-of-set.html 
-
+        //public List<String> Permutation(List<string> result, string prefix, string s)
+        //{
+        //    int n = s.Length;
+        //    if (n == 0)
+        //    {
+        //        result.Add(prefix);
+        //    }
+        //    else
+        //    {
+        //        for (int i = 0; i < n; i++)
+        //            Permutation(result, prefix + s[i], s.Substring(0, i) + s.Substring(i + 1));
+        //    }
+        //    return result;
+        //}
+        #endregion
 
         //*
         // 1> pick one char from the current digit
@@ -243,7 +218,6 @@ namespace StudyTest
             return node;
         }
 
-
         public bool isBST(Node root, Node prev)
         {
             if (root == null)
@@ -259,9 +233,34 @@ namespace StudyTest
             return isBST(root.right, prev);
         }
 
+        //*Alt solution with explaination  
+        //http://www.growingwiththeweb.com/2013/06/algorithm-all-permutations-of-set.html 
+
+        //The first parameter, called prefix increases in length as the function 
+        //recurses, a character is added to the prefix, and 
+        //then that becomes the new prefix for the next recursive call.  
+
+        //The second parameter str gets smaller and smaller each time the method 
+        //recurses because str.substring(0,i) nabs the string from position 0 to i, 
+        //then cuts off one char, then pastes on substring (i+1) to the end. 
+
+        public void permWithPrefix(String prefix, String input)
+        {
+            if (input.Length <= 0)
+                Debug.Print(prefix);
+            else
+            {
+                for (int i = 0; i < input.Length; i++)
+                {
+                    permWithPrefix(prefix + input[i], input.Substring(0, i) + input.Substring(i + 1));
+                }
+            }
+        }
+
+
         //DFS algo
         //http://exceptional-code.blogspot.com/2012/09/generating-all-permutations.html
-        public static void perm5(string input, string result, bool[] visited, List<string> results)
+        public static void permWithDFS(string input, string result, bool[] visited, List<string> results)
         {
             if (result.Length == input.Length)
             {
@@ -274,37 +273,33 @@ namespace StudyTest
                     if (!visited[i])
                     {
                         visited[i] = true;
-                        perm5(input, result + input[i].ToString(), visited, results);
+                        permWithDFS(input, result + input[i].ToString(), visited, results);
                         visited[i] = false;
                     }
                 }
             }
         }
 
-        public static void perm6(string prefix, string input)
+        public static void FindPowerSet(String str, int digit, List<String> powerSet)
         {
-            if (input.Length == 0)
+            int n = str.Length;
+            if (digit == n)
             {
-                Debug.Print(prefix);
-            }
-
-            for (int i = 0; i < input.Length; i++)
-            {
-                perm6(prefix + input[i], input.Substring(0, i) + input.Substring(i + 1));
-            }
-        }
-
-        public static void powerSet(string prefix, string input, List<string> results, int idx)
-        {
-            if (prefix.Length==3)
-            {
+                powerSet.Add("");
                 return;
             }
 
-            results.Add(prefix);
-            powerSet(input.Substring(0, idx), input, results, idx+1);
-        }
+            char first = str[digit];
+            FindPowerSet(str, digit + 1, powerSet);
+            List<String> newCombos = new List<String>();
 
+            foreach (String set in powerSet)
+            {
+                newCombos.Add(first + set);
+            }
+
+            powerSet.AddRange(newCombos);
+        }
 
         //http://www.careercup.com/question?id=4356911
         public static void powerSet2(int[] elements, int n, string end,  List<string> r)
@@ -318,6 +313,17 @@ namespace StudyTest
             r.Add(newend);
             powerSet2(elements, n - 1, end, r);
             powerSet2(elements, n - 1, newend, r);
+        }
+
+        public static void PS3(String prefix, string input, List<string> result)
+        {
+            for (int i = 0; i < input.Length; i++)
+            {
+                PS3(prefix + input[i], input.Substring(0, i) + input.Substring(i + 1), result);
+
+                result.Add(prefix);
+            }
+          
         }
     }
 }
