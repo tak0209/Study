@@ -179,7 +179,7 @@ namespace StudyTest
         //              C:R(1, "AD")
         //                  E: R(2, "ADE")
         //                  E: R(2, "ADF")
-        //*
+        //
         public void getAllPhone(string phonenumber, int currentDig, string s, Dictionary<char, string> map)
         {
             if (phonenumber.Length == s.Length)
@@ -244,6 +244,13 @@ namespace StudyTest
         //recurses because str.substring(0,i) nabs the string from position 0 to i, 
         //then cuts off one char, then pastes on substring (i+1) to the end. 
 
+        //1. P("", "abc") : i=0
+        //2.   P("a", "bc") : i=0
+        //3.     P("ab", "c") : i=0
+        //4.       P("abc","")       <-- Point of return:  Go to level 2. since input.length < i after increment to 1
+        //        
+        //5.   P("ac", "b"): i=1
+        //6.     P("acb","") 
         public void permWithPrefix(String prefix, String input)
         {
             if (input.Length <= 0)
