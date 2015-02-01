@@ -267,11 +267,11 @@ namespace StudyTest
 
         //DFS algo
         //http://exceptional-code.blogspot.com/2012/09/generating-all-permutations.html
-        public static void permWithDFS(string input, string result, bool[] visited, List<string> results)
+        public static void permWithDFS(string input, string newStr, bool[] visited, List<string> results)
         {
-            if (result.Length == input.Length)
+            if (newStr.Length == input.Length)
             {
-                results.Add(result);
+                results.Add(newStr);
             }
             else
             {
@@ -280,7 +280,7 @@ namespace StudyTest
                     if (!visited[i])
                     {
                         visited[i] = true;
-                        permWithDFS(input, result + input[i].ToString(), visited, results);
+                        permWithDFS(input, newStr + input[i].ToString(), visited, results);
                         visited[i] = false;
                     }
                 }
@@ -290,19 +290,18 @@ namespace StudyTest
         // P(ab) = a + P(b) U P(b)      => a + {b, ""} U {b, ""} => {ab, a, b, ""}
         // P(b) = b + P("")             => {b, ""}
         // P("") = ""
-        public static void FindPowerSet(String str, int digit, List<String> powerSet)
+        public static void FindPowerSet(String str, int currentIdx, List<String> powerSet)
         {
-            int n = str.Length;
-            if (digit == n)
+            if (currentIdx == str.Length)
             {
                 powerSet.Add("");
                 return;
             }
 
-            char first = str[digit];
-            FindPowerSet(str, digit + 1, powerSet);
+            char first = str[currentIdx];
+            
+            FindPowerSet(str, currentIdx + 1, powerSet);
             List<String> newCombos = new List<String>();
-
             foreach (String set in powerSet)
             {
                 newCombos.Add(first + set);
