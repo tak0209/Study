@@ -15,9 +15,9 @@ namespace TestCase
         {
             GraphNode g = new GraphNode();
             g.Value = 1;
-            g.Childern = new GraphNode[] { new GraphNode { Value = 2 }, new GraphNode { Value = 3 } };
-            g.Childern[0].Childern = new GraphNode[] { new GraphNode { Value = 5 }, new GraphNode { Value = 4 } };
-            g.Childern[0].Childern[1].Childern = new GraphNode[] { g.Childern[0].Childern[0] };
+            g.Childern = new List<GraphNode> { new GraphNode { Value = 2 }, new GraphNode { Value = 3 } };
+            g.Childern[0].Childern = new List<GraphNode> { new GraphNode { Value = 5 }, new GraphNode { Value = 4 } };
+            g.Childern[0].Childern[1].Childern = new List<GraphNode> { g.Childern[0].Childern[0] };
             return g;
         }
 
@@ -31,7 +31,9 @@ namespace TestCase
             //         5 -  4 
 
             GraphNode g = SetupGraph();
-            Graph.BFS(g);
+            var clone = Graph.CloneGraph(g);
+
+            Graph.BFS(clone);
         }
 
         [TestMethod]

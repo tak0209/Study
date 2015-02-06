@@ -9,6 +9,6 @@ namespace StudyTest
     {
         public int Value { get; set; }
         public bool Visited { get; set; }
-        public GraphNode[] Childern { get; set; }
+        public List<GraphNode> Childern { get; set; }
     }
 }
