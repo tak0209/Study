@@ -310,29 +310,29 @@ namespace StudyTest
             powerSet.AddRange(newCombos);
         }
 
-        //http://www.careercup.com/question?id=4356911
-        public static void powerSet2(int[] elements, int n, string end,  List<string> r)
-        {
-            if (n < 0)
-            {
-                Debug.Print(" " + end);
-                return;
-            }
-            string newend = elements[n].ToString() + ", " + end;
-            r.Add(newend);
-            powerSet2(elements, n - 1, end, r);
-            powerSet2(elements, n - 1, newend, r);
-        }
+        ////http://www.careercup.com/question?id=4356911
+        //public static void powerSet2(int[] elements, int n, string end,  List<string> r)
+        //{
+        //    if (n < 0)
+        //    {
+        //        Debug.Print(" " + end);
+        //        return;
+        //    }
+        //    string newend = elements[n].ToString() + ", " + end;
+        //    r.Add(newend);
+        //    powerSet2(elements, n - 1, end, r);
+        //    powerSet2(elements, n - 1, newend, r);
+        //}
 
-        public static void PS3(String prefix, string input, List<string> result)
-        {
-            for (int i = 0; i < input.Length; i++)
-            {
-                PS3(prefix + input[i], input.Substring(0, i) + input.Substring(i + 1), result);
+        //public static void PS3(String prefix, string input, List<string> result)
+        //{
+        //    for (int i = 0; i < input.Length; i++)
+        //    {
+        //        PS3(prefix + input[i], input.Substring(0, i) + input.Substring(i + 1), result);
 
-                result.Add(prefix);
-            }
+        //        result.Add(prefix);
+        //    }
           
-        }
+        //}
     }
 }

@@ -136,34 +136,25 @@ namespace TestCase
         }
         
         [TestMethod]
-        public void PowerSetTest()
-        {
-            List<string> testResult = new List<string>();
-            //Recursive.powerSet("", "abc",testResult, 1);
-        }
-
-
-        [TestMethod]
-        public void PS()
-        {
-            List<string> testResult = new List<string>();
-            Recursive.powerSet2(new int[] { 1, 2, 3 }, 2, "", testResult);
-
-        }
-
-        [TestMethod]
         public void PS2Test()
         {
             List<string> powerSet = new List<string>();
             Recursive.FindPowerSet("123", 0, powerSet);
         }
 
-        [TestMethod]
-        public void PS3Test()
-        {
-            List<string> powerSet = new List<string>();
-            Recursive.PS3("", "123", powerSet);
-        }
+        //[TestMethod]
+        //public void PS3Test()
+        //{
+        //    List<string> powerSet = new List<string>();
+        //    Recursive.PS3("", "123", powerSet);
+        //}
+
+        //[TestMethod]
+        //public void PS()
+        //{
+        //    List<string> testResult = new List<string>();
+        //    Recursive.powerSet2(new int[] { 1, 2, 3 }, 2, "", testResult);
+        //}
     }
 }
     
