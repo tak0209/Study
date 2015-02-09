@@ -26,14 +26,14 @@ namespace StudyTest
                     currentNode = new GraphNode() { Value = n.Value, Childern = new List<GraphNode>() };
                     map.Add(currentNode.Value, currentNode);
 
-                    if (map.Count()==1)
+                    if (map.Count() == 1)
                     {
                         newGraph = currentNode;
                     }
                 }
                 else
                 {
-                    currentNode = map[n.Value];    
+                    currentNode = map[n.Value];
                 }
 
                 if (n.Childern != null)
@@ -83,6 +83,7 @@ namespace StudyTest
             }
         }
 
+     
         public static void DFS(GraphNode root)
         {
             Stack<GraphNode> s = new Stack<GraphNode>();
@@ -92,9 +93,9 @@ namespace StudyTest
             while (s.Any())
             {
                 GraphNode n = s.Peek();
-                if (n.Childern!=null)
+                if (n.Childern != null)
                 {
-                    foreach(GraphNode gn in n.Childern)
+                    foreach (GraphNode gn in n.Childern)
                     {
                         if (!gn.Visited)
                         {
