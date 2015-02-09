@@ -310,6 +310,56 @@ namespace StudyTest
             powerSet.AddRange(newCombos);
         }
 
+        public void visitNode(Node node)
+        {
+            if (node.left != null)
+            {
+                visitNode(node.left);
+            }
+            if (node.right != null)
+            {
+                visitNode(node.right);
+            }
+            if (node.left == null && node.right == null)
+            {
+                //OMG! leaf!
+            }
+        }
+
+        public static void printLevelOrderZigZag(Node root)
+        {
+            Stack<Node> currentLevel = new Stack<Node>();
+            Stack<Node> nextLevel = new Stack<Node>();
+
+            currentLevel.Push(root);
+            while (currentLevel.Any())
+            {
+                while (currentLevel.Any())
+                {
+                    Node n = currentLevel.Pop();
+                    if (n != null)
+                    {
+                        Debug.Print(n.value.ToString());
+
+                        nextLevel.Push(n.left);
+                        nextLevel.Push(n.right);
+                    }
+                }
+
+                while(nextLevel.Any())
+                {
+                    Node n = nextLevel.Pop();
+                    if (n != null)
+                    {
+                        Debug.Print(n.value.ToString());
+
+                        currentLevel.Push(n.right);
+                        currentLevel.Push(n.left);
+                    }
+                }
+            }
+        }
+
         ////http://www.careercup.com/question?id=4356911
         //public static void powerSet2(int[] elements, int n, string end,  List<string> r)
         //{

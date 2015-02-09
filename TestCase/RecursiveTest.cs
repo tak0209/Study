@@ -17,7 +17,7 @@ namespace TestCase
             Debug.Print("{0}", result);
             Assert.AreEqual(5 + 4 + 3 + 2 + 1, result);
         }
-        
+
         [TestMethod]
         public void FactTest()
         {
@@ -126,6 +126,16 @@ namespace TestCase
             Assert.AreEqual(5, LCAnode.value);
         }
 
+        [TestMethod]
+        public void PrintLevelZapzipTest()
+        {
+            Node root = new Node(9);                    //          9
+            root.left = new Node(5);                    //         / \
+            root.right = new Node(10);                  //        5   10
+            root.left.right = new Node(6);              //       / \
+            root.left.left = new Node(4);               //      4   6
+            Recursive.printLevelOrderZigZag(root);
+        }
 
         [TestMethod]
         public void IsBSTTreeTest()
@@ -135,11 +145,11 @@ namespace TestCase
             root.right = new Node(1);                   //        5   8
             //root.left.right = new Node(6);              //         \
             //                                            //          6
-            
+
             Recursive myRecursive = new Recursive();
             Assert.IsTrue(myRecursive.isBST(root, null));
         }
-        
+
         [TestMethod]
         public void PS2Test()
         {
@@ -162,4 +172,3 @@ namespace TestCase
         //}
     }
 }
-    
