@@ -168,6 +168,36 @@ namespace StudyTest
             return ret;
         }
 
+        public static void ReverseSentence(char[] s)
+        {
+            int end = s.Length-1;
+            Reverse(s, 0, end);
+
+            //reverse each word
+            int start = 0;
+            int i = 0;
+            while (i<end)
+            {
+                while (i<=end && s[i]!= ' ') 
+                { 
+                    i++;                     
+                }               //find next word
+                Reverse(s, start, i-1);
+                start = ++i;
+            }
+
+        }
+
+        private static void Reverse(char[] str, int s, int e)
+        {
+            for (int i = s; i < e; i++)
+            {
+                var temp = str[i];
+                str[i] = str[e];
+                str[e] = temp;
+                e--;
+            }
+        }
     }
 
     public class matrixPt

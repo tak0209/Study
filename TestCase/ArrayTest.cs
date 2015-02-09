@@ -29,5 +29,13 @@ namespace TestCase
             //ArrayObj.FindString(m, "", "CAT", 0, 0);
             ArrayObj.FindString(m, "", "XBOX", 0, 0);
         }
+
+        [TestMethod]
+        public void TestReverseString()
+        {
+            char[] test = "this is    a test".ToCharArray();
+            ArrayObj.ReverseSentence(test);
+
+        }
     }
 }
