@@ -54,11 +54,10 @@ namespace StudyTest
         }
 
         //FindString(m, "", "XBOX", 0, 0);
-        public static void FindString(string[][] m, string path, string search, int r, int c)
+        public static void FindString(string[][] m, string path, string search, int r, int c, bool[][] visited)
         {
             if (m[r][c] == search[0].ToString())
             {
-                path += "[" + r + "," + c + "],";
                 if (search.Length == 1)
                 {
                     Debug.Print("Find it!: {0}", path);
@@ -68,31 +67,44 @@ namespace StudyTest
                 List<matrixPt> a = findNextPath(m, r, c, search[1].ToString());
                 foreach (matrixPt n in a)
                 {
-                    path += "[" + n.r + "," + n.c + "],";
-                    FindString(m, path, search.Substring(1), n.r, n.c);
+                    if (!visited[n.r][n.c])
+                    {
+                        path += "[" + n.r + "," + n.c + "],";
+                        FindString(m, path, search.Substring(1), n.r, n.c, visited);
+                        visited[n.r][n.c] = true;
+                    }
                 }
             }
 
-            if (r < m.Count() - 1)        //more row?
+            if (r < m.Count())                            //more row?
             {
-                if (c + 1 <= m[0].Count() - 1)
+                if (c + 1 < m[0].Count())
                 {
                     c++;
                 }
                 else
                 {
+                    if (r + 1 >= m.Count()) return;
                     r++;
                     c = 0;
                 }
 
                 path = "";
+                for (int i = 0; i < m.Count(); i++)
+                {
+                    for (int j = 0; j < m[0].Count(); j++)
+                    {
+                        visited[i][j] = false;
+                    }
+                }
             }
             else
             {
-                Debug.Print("No find");
                 return;
             }
-            FindString(m, path, search, r, c);
+            visited[r][c] = true;
+            path += "[" + r + "," + c + "],";
+            FindString(m, path, search, r, c, visited);
         }
 
         private static List<matrixPt> findNextPath(string[][] m, int r, int c, string nextChar)
@@ -170,19 +182,19 @@ namespace StudyTest
 
         public static void ReverseSentence(char[] s)
         {
-            int end = s.Length-1;
+            int end = s.Length - 1;
             Reverse(s, 0, end);
 
             //reverse each word
             int start = 0;
             int i = 0;
-            while (i<end)
+            while (i < end)
             {
-                while (i<=end && s[i]!= ' ') 
-                { 
-                    i++;                     
+                while (i <= end && s[i] != ' ')
+                {
+                    i++;
                 }               //find next word
-                Reverse(s, start, i-1);
+                Reverse(s, start, i - 1);
                 start = ++i;
             }
 

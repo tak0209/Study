@@ -27,7 +27,11 @@ namespace TestCase
                                            new string[] {"V","X", "D", "E"}};
 
             //ArrayObj.FindString(m, "", "CAT", 0, 0);
-            ArrayObj.FindString(m, "", "XBOX", 0, 0);
+            bool[][] visited = { new bool[] { false, false, false, false },
+                               new bool[] { false, false, false, false } ,
+                               new bool[] { false, false, false, false } 
+                               };
+            ArrayObj.FindString(m, "", "XBOX", 0, 0, visited);
         }
 
         [TestMethod]
@@ -35,7 +39,6 @@ namespace TestCase
         {
             char[] test = "this is    a test".ToCharArray();
             ArrayObj.ReverseSentence(test);
-
         }
     }
 }
