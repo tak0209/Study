@@ -218,3 +218,49 @@ namespace StudyTest
         public int c { get; set; }
     }
 }
+
+
+/*
+boolean pattern_match(char **martix, int m, int n, char *pattern)
+{
+    boolean **visited = new boolean*[n];
+    boolean found=false;
+    int i, j;
+    for(i=0; i<m; i++) {
+       visited = new boolean[n];
+       for(j=0; j<n; j++) visited[i][j]=false;
+    }       
+
+    for(i=0; i<m; i++) 
+       for(j=0; j<n; j++) {
+           if(find_pattern(matrix, i, j, m, n, pattern, visited)==true) {
+              found = true; break;
+           }
+       }
+       if(found) break;
+    }
+    for(i=0; i<m; i++) delete visited[i];
+    delete visited;
+
+    return found;
+}
+
+boolean find_pattern(char **matrix, int i, int j, int m, int n, char *pattern, boolean visited)
+{
+static int delta_i[8]={-1, -1, -1, 0, 1, 1, 1, 0};
+static int delta_j[8]={1, 0, -1, -1, -1, 0, 1, 1};
+    int k;
+    char *p=pattern;
+    if(*p == '\0') return true;
+    if(i<;0 || i>=m-1 || j<;0 || j>=n-1) return false;
+    if(matrix[i][j] != *p || visited[i][j]==true) return false;
+
+    visited[i][j]=true;
+    for(k=0; k<;8; k++) {
+       if(find_pattern(matrix, i+delta_i[k], j+delta_j[k], m, n, p+1, visited)==true) 
+         return true;    
+    }
+    return (visited[i][j]=false);
+}
+
+*/

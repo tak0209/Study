@@ -45,10 +45,30 @@ namespace StudyTest
 
             return head;
         }
+
+        //based on a 3 element list     1 -> 2 ->3   the fast pointer will be moved to 2^n where n=n+1:: 2, 4, 6, 8.... therefore when fast is at the end then slow is in the middle (slow @2 fast @ end)
+        public static void SplitLinkInMiddle(LinkNode head, ref LinkNode first, ref LinkNode last)
+        {
+            if (head == null)
+                return; // Handle empty list
+
+            LinkNode slow = head;
+            LinkNode fast = head;
+            while (fast!= null)
+            {
+                slow = slow.next;
+                fast = (fast.next != null) ? fast.next.next : null;
+            }
+            last = slow;
+            first = head;
+        }
     }
 
     public class LinkNode
     {
+        public LinkNode()
+        { }
+
         public LinkNode (int v)
         {
             value = v;

@@ -36,5 +36,21 @@ namespace TestCase
             
         }
 
+        [TestMethod]
+        public void SplitLinkTest()
+        {
+            //3->2->1
+            LinkNode L1 = new LinkNode(3);
+            L1.next = new LinkNode(2);
+            L1.next.next = new LinkNode(1);
+            L1.next.next.next = new LinkNode(5);
+            L1.next.next.next.next = new LinkNode(6);
+            L1.next.next.next.next.next = new LinkNode(7);
+
+            LinkNode first = new LinkNode();
+            LinkNode second = new LinkNode();
+            LinkedList.SplitLinkInMiddle(L1, ref first, ref second);
+        }
+
     }
 }
