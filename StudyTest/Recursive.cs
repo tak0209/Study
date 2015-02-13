@@ -125,7 +125,7 @@ namespace StudyTest
             }
         }
 
-       
+
         //http://learnprogramming.machinesentience.com/java_permutations_recursion/
         /*The algorithm is:
 
@@ -299,7 +299,7 @@ namespace StudyTest
             }
 
             char first = str[currentIdx];
-            
+
             FindPowerSet(str, currentIdx + 1, powerSet);
             List<String> newCombos = new List<String>();
             foreach (String set in powerSet)
@@ -310,15 +310,15 @@ namespace StudyTest
             powerSet.AddRange(newCombos);
         }
 
-        public void visitNode(Node node)
+        public void GetAllLeaves(Node node)
         {
             if (node.left != null)
             {
-                visitNode(node.left);
+                GetAllLeaves(node.left);
             }
             if (node.right != null)
             {
-                visitNode(node.right);
+                GetAllLeaves(node.right);
             }
             if (node.left == null && node.right == null)
             {
@@ -346,7 +346,7 @@ namespace StudyTest
                     }
                 }
 
-                while(nextLevel.Any())
+                while (nextLevel.Any())
                 {
                     Node n = nextLevel.Pop();
                     if (n != null)
@@ -359,6 +359,30 @@ namespace StudyTest
                 }
             }
         }
+
+        public static void Brackets(int n) { 
+            for (int i = 1; i <= n; i++) 
+            { 
+                Brackets("", 0, 0, i); 
+            } 
+        } 
+        
+        private static void Brackets(string output, int open, int close, int pairs) 
+        { 
+            if ((open == pairs) && (close == pairs)) 
+            { 
+                Console.WriteLine(output); 
+            } 
+            else 
+            { 
+                if (open < pairs) 
+                    Brackets(output + "(", open + 1, close, pairs); 
+                
+                if (close < open) 
+                    Brackets(output + ")", open, close + 1, pairs); 
+            } 
+        }
+
 
         ////http://www.careercup.com/question?id=4356911
         //public static void powerSet2(int[] elements, int n, string end,  List<string> r)
@@ -382,7 +406,19 @@ namespace StudyTest
 
         //        result.Add(prefix);
         //    }
-          
+
         //}
+
+        public static Node SortedArrayToBST(int[] a, int start, int end)
+        {
+            if (start > end) return null;
+            int mid = start + (end - start) / 2;
+
+            Node n = new Node(a[mid]);
+            n.left = SortedArrayToBST(a, start, mid - 1);
+            n.right = SortedArrayToBST(a, mid + 1, end);
+
+            return n;
+        }
     }
 }

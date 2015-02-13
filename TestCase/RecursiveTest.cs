@@ -157,6 +157,14 @@ namespace TestCase
             Recursive.FindPowerSet("123", 0, powerSet);
         }
 
+        [TestMethod]
+        public void sortedArrayToBSTTest()
+        {
+            int[] a = new int[] { 1, 2, 3 };
+            Recursive.SortedArrayToBST(a, 0, a.Length - 1);
+        }
+
+
         //[TestMethod]
         //public void PS3Test()
         //{
