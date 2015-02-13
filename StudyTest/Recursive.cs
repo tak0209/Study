@@ -299,8 +299,8 @@ namespace StudyTest
             }
 
             char first = str[currentIdx];
-
             FindPowerSet(str, currentIdx + 1, powerSet);
+
             List<String> newCombos = new List<String>();
             foreach (String set in powerSet)
             {

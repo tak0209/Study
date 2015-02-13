@@ -43,11 +43,12 @@ namespace StudyTest
             }
 
             //Go to left side of the array if the last element is greater than mid element
+            //10, 6, 7, 8, 9
             if (a[high] > a[mid])
             {
                 FindMin(a, low, mid - 1);
             }
-            else
+            else    //8, 9, 10, 6, 7
             {
                 FindMin(a, mid + 1, high);
             }
