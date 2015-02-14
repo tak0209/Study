@@ -438,7 +438,7 @@ namespace StudyTest
                 }
                 else
                 {
-                    if (map.ContainsValue(str[i]) && map[s.Peek()] == str[i])
+                    if (s.Any() && map[s.Peek()] == str[i])
                     {
                         s.Pop();
                     }
