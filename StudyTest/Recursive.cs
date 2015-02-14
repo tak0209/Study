@@ -360,10 +360,10 @@ namespace StudyTest
             }
         }
 
-        public static void Brackets(int n) { 
-            for (int i = 1; i <= n; i++) 
-            { 
-                Brackets("", 0, 0, i); 
+        public static void Brackets(int n) {
+            for (int i = 1; i <= n; i++)
+            {
+                Brackets("", 0, 0, i);
             } 
         } 
         
@@ -371,7 +371,7 @@ namespace StudyTest
         { 
             if ((open == pairs) && (close == pairs)) 
             { 
-                Console.WriteLine(output); 
+                Debug.Print(output); 
             } 
             else 
             { 
@@ -419,6 +419,33 @@ namespace StudyTest
             n.right = SortedArrayToBST(a, mid + 1, end);
 
             return n;
+        }
+
+        public static bool isValidP(string str)
+        {
+            Dictionary<char, char> map = new Dictionary<char, char>(){
+                {'(', ')'},
+                {'[', ']'},
+                {'{', '}'}
+            };
+
+            Stack<char> s = new Stack<char>();
+            for (int i = 0; i < str.Length; i++)
+            {
+                if (map.ContainsKey(str[i]))
+                {
+                    s.Push(str[i]);
+                }
+                else
+                {
+                    if (map.ContainsValue(str[i]) && map[s.Peek()] == str[i])
+                    {
+                        s.Pop();
+                    }
+                }
+            }
+
+            return (!s.Any());
         }
     }
 }

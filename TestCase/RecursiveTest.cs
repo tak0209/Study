@@ -165,6 +165,18 @@ namespace TestCase
         }
 
 
+        [TestMethod]
+        public void BracketsTest()
+        {
+            Recursive.Brackets(2);
+        }
+
+        [TestMethod]
+        public void isValidPTest()
+        {
+            bool ret = Recursive.isValidP("[(ABC)] + {2}");
+            Assert.IsTrue(ret);
+        }
         //[TestMethod]
         //public void PS3Test()
         //{
