@@ -40,5 +40,17 @@ namespace TestCase
             char[] test = "this is    a test".ToCharArray();
             ArrayObj.ReverseSentence(test);
         }
+
+        [TestMethod]
+        public void MaxProfitTest()
+        {
+            int[] a = new int[] { 5, 10, 25, 1, 10, 30 };
+            //int[] a = new int[] { 5, 10, 25, 35, 45, 55 };
+            //int[] a = new int[] { 2,3,10,6,4,8,1};
+            //int[] a = new int[] { 7, 9, 5, 6,3, 2 };
+            ArrayObj.maxOneProfit(a);
+
+            ArrayObj.maxProfit(a);
+        }
     }
 }

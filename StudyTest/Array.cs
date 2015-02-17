@@ -211,6 +211,36 @@ namespace StudyTest
                 e--;
             }
         }
+
+        public static int maxOneProfit(int[] prices)
+        {
+            int min = 0;
+            int maxP = 0;
+
+            min = prices[0];
+            for (int i=1; i<prices.Length;i++)
+            {
+                maxP = Math.Max(maxP, prices[i] - min);
+                min = Math.Min(min, prices[i]);
+            }
+
+            return maxP;
+        }
+
+        // greedy algorithm, if make profits, then buy
+            public static int maxProfit(int[] prices)
+            {
+                if (prices.Length < 1) return 0;
+                int max = 0;
+                for (int i = 1; i < prices.Length; i++)
+                {
+                    if (prices[i] > prices[i - 1])
+                    {
+                        max += prices[i] - prices[i - 1];
+                    }
+                }
+                return max;
+            }
     }
 
     public class matrixPt
@@ -218,6 +248,7 @@ namespace StudyTest
         public int r { get; set; }
         public int c { get; set; }
     }
+   
 }
 
 
