@@ -24,14 +24,10 @@ namespace TestCase
         {
             string[][] m = new string[][] {new string[] {"C","B", "E", "C"}, 
                                            new string[] {"O", "X", "T", "A"}, 
-                                           new string[] {"V","X", "D", "E"}};
+                                           new string[] {"V","Y", "D", "E"}};
 
-            //ArrayObj.FindString(m, "", "CAT", 0, 0);
-            bool[][] visited = { new bool[] { false, false, false, false },
-                               new bool[] { false, false, false, false } ,
-                               new bool[] { false, false, false, false } 
-                               };
-            ArrayObj.FindString(m, "", "XBOX", 0, 0, visited);
+
+            ArrayObj.FindStringHelper(m, "XBOX");
         }
 
         [TestMethod]
