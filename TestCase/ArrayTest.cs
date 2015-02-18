@@ -22,12 +22,17 @@ namespace TestCase
         [TestMethod]
         public void TestFindString()
         {
-            string[][] m = new string[][] {new string[] {"C","B", "E", "C"}, 
-                                           new string[] {"O", "X", "T", "A"}, 
-                                           new string[] {"V","Y", "D", "E"}};
+            //string[][] m = new string[][] {new string[] {"C","B", "E", "C"}, 
+            //                               new string[] {"O", "X", "T", "A"}, 
+            //                               new string[] {"V","X", "D", "E"}};
 
+            string[][] m = new string[][] {new string[] {"O","F", "A", "S"}, 
+                                           new string[] {"L", "L", "Q", "W"}, 
+                                           new string[] {"Z","O", "W", "K"}};
 
-            ArrayObj.FindStringHelper(m, "XBOX");
+            //ArrayObj.FindStringHelper(m, "XBOX");
+
+            ArrayObj.FindStringHelper(m, "FOLLOW");
         }
 
         [TestMethod]
