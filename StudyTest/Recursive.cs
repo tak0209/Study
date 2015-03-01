@@ -360,27 +360,28 @@ namespace StudyTest
             }
         }
 
-        public static void Brackets(int n) {
+        public static void Brackets(int n)
+        {
             for (int i = 1; i <= n; i++)
             {
                 Brackets("", 0, 0, i);
-            } 
-        } 
-        
-        private static void Brackets(string output, int open, int close, int pairs) 
-        { 
-            if ((open == pairs) && (close == pairs)) 
-            { 
-                Debug.Print(output); 
-            } 
-            else 
-            { 
-                if (open < pairs) 
-                    Brackets(output + "(", open + 1, close, pairs); 
-                
-                if (close < open) 
-                    Brackets(output + ")", open, close + 1, pairs); 
-            } 
+            }
+        }
+
+        private static void Brackets(string output, int open, int close, int pairs)
+        {
+            if ((open == pairs) && (close == pairs))
+            {
+                Debug.Print(output);
+            }
+            else
+            {
+                if (open < pairs)
+                    Brackets(output + "(", open + 1, close, pairs);
+
+                if (close < open)
+                    Brackets(output + ")", open, close + 1, pairs);
+            }
         }
 
 
@@ -419,6 +420,29 @@ namespace StudyTest
             n.right = SortedArrayToBST(a, mid + 1, end);
 
             return n;
+        }
+
+        public static int compareVersion(string Version1, string Version2)
+        {
+            var m1 = Version1.Split('.');
+            var m2 = Version2.Split('.');
+            int max = Math.Min(m1.Length, m2.Length);
+            for (int i = 0; i <= max; i++)
+            {
+                //if m1 has a digit then use it else it's consider a 0; 
+                //i,e. 1.2 compare to 1.3.1 will use 1.2.0 instead of 1.2
+                int v1 = (i < m1.Length ? Convert.ToInt32(m1[i]) : 0);     
+                int v2 = (i < m2.Length ? Convert.ToInt32(m2[i]) : 0);
+                if (v1 > v2)
+                {
+                    return 1;
+                }
+                if (v1 < v2)
+                {
+                    return -1;
+                }
+            }
+            return 0;
         }
 
         public static bool isValidP(string str)
