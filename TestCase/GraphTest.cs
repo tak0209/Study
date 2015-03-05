@@ -11,26 +11,39 @@ namespace TestCase
     [TestClass]
     public class GraphTest
     {
-        private static GraphNode SetupGraph()
+        static List<GraphNode> G = new List<GraphNode>();
+        static GraphNode g = new GraphNode {Value = 1};
+        static GraphNode g2 = new GraphNode { Value = 2 };
+        static GraphNode g3 = new GraphNode { Value = 3 };
+        static GraphNode g4 = new GraphNode { Value = 4 };
+        static GraphNode g5 = new GraphNode { Value = 5 };
+        static GraphNode g6 = new GraphNode { Value = 6 };
+           
+        private static void SetupGraph()
         {
-            GraphNode g = new GraphNode();
-            g.Value = 1;
-            g.Childern = new List<GraphNode> { new GraphNode { Value = 2 }, new GraphNode { Value = 3 } };
-            g.Childern[0].Childern = new List<GraphNode> { new GraphNode { Value = 5 }, new GraphNode { Value = 4 } };
-            g.Childern[0].Childern[1].Childern = new List<GraphNode> { g.Childern[0].Childern[0] };
-            return g;
+            g.Childern = new List<GraphNode> { g2, g3 };
+            g2.Childern = new List<GraphNode> { g5, g4 };
+            g6.Childern = new List<GraphNode> { g2 };
+
+            G.Add(g6);
+            G.Add(g2);
+            G.Add(g3);
+            G.Add(g4);
+            G.Add(g5);
+            G.Add(g);
         }
+
+
+        //              1
+        //       6    /   \
+        //        \  2     3
+        //          /  \
+        //         5    4 
 
         [TestMethod]
         public void TestBFS()
-        {
-            //              1
-            //            /   \
-            //           2     3
-            //          /  \
-            //         5 -  4 
-
-            GraphNode g = SetupGraph();
+        {          
+            SetupGraph();
             var clone = Graph.CloneGraph(g);
 
             Graph.BFS(clone);
@@ -39,8 +52,12 @@ namespace TestCase
         [TestMethod]
         public void TestDFS()
         {
-            GraphNode g = SetupGraph();
-            Graph.DFS(g);
+            SetupGraph();
+            foreach (var n in G)
+            {
+                Graph.recursivePostOrder(n);               
+            }
+            //Graph.DFS(g);
         }
     }
 }

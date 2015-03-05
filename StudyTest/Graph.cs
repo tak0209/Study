@@ -92,7 +92,7 @@ namespace StudyTest
 
             while (s.Any())
             {
-                GraphNode n = s.Peek();
+                GraphNode n = s.Pop();
                 if (n.Childern != null)
                 {
                     foreach (GraphNode gn in n.Childern)
@@ -106,9 +106,63 @@ namespace StudyTest
                     }
                 }
 
-                n = s.Pop();
+                //n = s.Pop();
                 //Debug.Print(n.Value.ToString());                //print bottom to top   3 4 5 2 1
             }
         }
+
+        //http://blogs.msdn.com/b/daveremy/archive/2010/03/16/non-recursive-post-order-depth-first-traversal.aspx
+        public static void recursivePostOrder(GraphNode node)
+        {
+            if (node.Childern != null)
+            {
+                foreach (var n in node.Childern)
+                {
+                    recursivePostOrder(n);
+                }
+            }
+            // Do action
+            if (!node.Visited)
+            {
+                node.Visited = true;
+                Debug.Print(node.Value.ToString());
+            }
+        }
+    }
+}
+
+public class Tree<K, V>
+    where K : class, IComparable<K>
+    where V : class
+{
+    private Node<K, V> root;
+
+    public V DFS(K key)
+    {
+        Stack<Node<K, V>> stack = new Stack<Node<K, V>>();
+
+        while (stack.Any())
+        {
+            var node = stack.Pop();
+
+            if (node.key == key)
+            {
+                return node.value;
+            }
+            foreach (var child in node.children)
+            {
+                stack.Push(child);
+            }
+        }
+        return default(V);
+    }
+
+    private class Node<K, V>
+        where K : class, IComparable<K>
+        where V : class
+    {
+        public K key;
+        public V value;
+        public Node<K, V>[] children;
     }
 }

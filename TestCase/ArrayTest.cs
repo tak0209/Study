@@ -18,20 +18,21 @@ namespace TestCase
             ArrayObj.FindMin(a, 0, a.Length - 1);
         }
 
-
+        
         [TestMethod]
         public void TestFindString()
         {
-            string[][] m = new string[][] {new string[] {"C","B", "E", "C"}, 
-                                           new string[] {"O", "X", "T", "A"}, 
-                                           new string[] {"V","X", "D", "E"}};
+            //string[][] m = new string[][] {new string[] {"C","B", "E", "C"}, 
+            //                               new string[] {"O", "X", "T", "A"}, 
+            //                               new string[] {"V","X", "D", "E"}};
 
-            //ArrayObj.FindString(m, "", "CAT", 0, 0);
-            bool[][] visited = { new bool[] { false, false, false, false },
-                               new bool[] { false, false, false, false } ,
-                               new bool[] { false, false, false, false } 
-                               };
-            ArrayObj.FindString(m, "", "XBOX", 0, 0, visited);
+            string[][] m = new string[][] {new string[] {"O","F", "A", "S"}, 
+                                           new string[] {"L", "L", "Q", "W"}, 
+                                           new string[] {"Z","O", "W", "K"}};
+
+            //ArrayObj.FindStringHelper(m, "XBOX");
+
+            ArrayObj.FindStringHelper(m, "FOLLOW");
         }
 
         [TestMethod]
@@ -46,6 +47,18 @@ namespace TestCase
         {
             int[] a = new int[] { 1, -3, 2, -5, 7, 6, -1, -4, 11, -23 };
             int max = ArrayObj.MSS(a);
+        }
+
+        [TestMethod]
+        public void MaxProfitTest()
+        {
+            int[] a = new int[] { 5, 10, 25, 1, 10, 30 };
+            //int[] a = new int[] { 5, 10, 25, 35, 45, 55 };
+            //int[] a = new int[] { 2,3,10,6,4,8,1};
+            //int[] a = new int[] { 7, 9, 5, 6,3, 2 };
+            ArrayObj.maxOneProfit(a);
+
+            ArrayObj.maxProfit(a);
         }
     }
 }

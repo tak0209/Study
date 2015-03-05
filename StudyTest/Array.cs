@@ -54,58 +54,48 @@ namespace StudyTest
             }
         }
 
-        //FindString(m, "", "XBOX", 0, 0);
-        public static void FindString(string[][] m, string path, string search, int r, int c, bool[][] visited)
+
+        public static void FindStringHelper(string[][] m, string search)
         {
-            if (m[r][c] == search[0].ToString())
-            {
-                if (search.Length == 1)
-                {
-                    Debug.Print("Find it!: {0}", path);
-                    return;
-                }
+            //ArrayObj.FindString(m, "", "CAT", 0, 0);
+            bool[][] visited = { new bool[] { false, false, false, false },
+                               new bool[] { false, false, false, false } ,
+                               new bool[] { false, false, false, false } 
+                               };
 
-                List<matrixPt> a = findNextPath(m, r, c, search[1].ToString());
-                foreach (matrixPt n in a)
+            for (int r = 0; r < m.Length; r++)
+            {
+                for (int c = 0; c < m[0].Length; c++)
                 {
-                    if (!visited[n.r][n.c])
+                    if (m[r][c] == search[0].ToString())
                     {
-                        path += "[" + n.r + "," + n.c + "],";
-                        FindString(m, path, search.Substring(1), n.r, n.c, visited);
-                        visited[n.r][n.c] = true;
+                        visited[r][c] = true;
+                        var path = "[" + r + "," + c + "]";
+                        bool ret = FindString(m, ref path, search, r, c, visited);
+                        visited[r][c] = false;
                     }
                 }
             }
+        }
+        //FindString(m, "", "XBOX", 0, 0);
+        public static bool FindString(string[][] m, ref string path, string search, int r, int c, bool[][] visited)
+        {
+            if (search.Length == 1)
+                return true;
 
-            if (r < m.Count())                            //more row?
+            List<matrixPt> a = findNextPath(m, r, c, search[1].ToString());
+            foreach (matrixPt n in a)
             {
-                if (c + 1 < m[0].Count())
+                if (!visited[n.r][n.c])
                 {
-                    c++;
-                }
-                else
-                {
-                    if (r + 1 >= m.Count()) return;
-                    r++;
-                    c = 0;
-                }
-
-                path = "";
-                for (int i = 0; i < m.Count(); i++)
-                {
-                    for (int j = 0; j < m[0].Count(); j++)
-                    {
-                        visited[i][j] = false;
-                    }
+                    path += "[" + n.r + "," + n.c + "],";
+                    visited[n.r][n.c] = true;
+                    return FindString(m, ref path, search.Substring(1), n.r, n.c, visited);
                 }
             }
-            else
-            {
-                return;
-            }
-            visited[r][c] = true;
-            path += "[" + r + "," + c + "],";
-            FindString(m, path, search, r, c, visited);
+
+            visited[r][c] = false;
+            return false;
         }
 
         private static List<matrixPt> findNextPath(string[][] m, int r, int c, string nextChar)
@@ -232,6 +222,36 @@ namespace StudyTest
             }
             return max;
         }
+
+        public static int maxOneProfit(int[] prices)
+        {
+            int min = 0;
+            int maxP = 0;
+
+            min = prices[0];
+            for (int i = 1; i < prices.Length; i++)
+            {
+                maxP = Math.Max(maxP, prices[i] - min);
+                min = Math.Min(min, prices[i]);
+            }
+
+            return maxP;
+        }
+
+        // greedy algorithm, if make profits, then buy
+        public static int maxProfit(int[] prices)
+        {
+            if (prices.Length < 1) return 0;
+            int max = 0;
+            for (int i = 1; i < prices.Length; i++)
+            {
+                if (prices[i] > prices[i - 1])
+                {
+                    max += prices[i] - prices[i - 1];
+                }
+            }
+            return max;
+        }
     }
 
     public class matrixPt
@@ -239,6 +259,7 @@ namespace StudyTest
         public int r { get; set; }
         public int c { get; set; }
     }
+
 }
 
 

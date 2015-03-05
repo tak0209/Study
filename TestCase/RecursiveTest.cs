@@ -177,6 +177,12 @@ namespace TestCase
             bool ret = Recursive.isValidP("[(ABC)] + {2}");
             Assert.IsTrue(ret);
         }
+
+        [TestMethod]
+        public void checkVersion()
+        {
+            var ret = Recursive.compareVersion("1.2", "1.2.1");
+        }
         //[TestMethod]
         //public void PS3Test()
         //{
