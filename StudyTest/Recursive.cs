@@ -288,7 +288,7 @@ namespace StudyTest
         }
 
         // P(ab) = a + P(b) U P(b)      => a + {b, ""} U {b, ""} => {ab, a, b, ""}
-        // P(b) = b + P("")             => {b, ""}
+        // P(b) = b + P("") U P("")     => {b, ""}
         // P("") = ""
         public static void FindPowerSet(String str, int currentIdx, List<String> powerSet)
         {
@@ -447,5 +447,6 @@ namespace StudyTest
 
             return (!s.Any());
         }
+
     }
 }

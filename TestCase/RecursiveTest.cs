@@ -154,7 +154,7 @@ namespace TestCase
         public void PS2Test()
         {
             List<string> powerSet = new List<string>();
-            Recursive.FindPowerSet("123", 0, powerSet);
+            Recursive.FindPowerSet("AB", 0, powerSet);
         }
 
         [TestMethod]

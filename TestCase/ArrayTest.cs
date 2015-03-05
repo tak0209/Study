@@ -18,7 +18,7 @@ namespace TestCase
             ArrayObj.FindMin(a, 0, a.Length - 1);
         }
 
-        
+
         [TestMethod]
         public void TestFindString()
         {
@@ -39,6 +39,13 @@ namespace TestCase
         {
             char[] test = "this is    a test".ToCharArray();
             ArrayObj.ReverseSentence(test);
+        }
+
+        [TestMethod]
+        public void MSSTest()
+        {
+            int[] a = new int[] { 1, -3, 2, -5, 7, 6, -1, -4, 11, -23 };
+            int max = ArrayObj.MSS(a);
         }
     }
 }

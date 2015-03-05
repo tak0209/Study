@@ -211,6 +211,27 @@ namespace StudyTest
                 e--;
             }
         }
+
+        public static int MSS(int[] a)
+        {
+            int max = 0;
+            int sum = 0;
+
+            for (int i = 0; i < a.Length - 1; i++)
+            {
+                if (sum + a[i] > 0)
+                {
+                    sum += a[i];
+                }
+                else
+                {
+                    sum = 0;
+                }
+
+                max = Math.Max(max, sum);
+            }
+            return max;
+        }
     }
 
     public class matrixPt
