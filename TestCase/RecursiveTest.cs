@@ -3,7 +3,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StudyTest;
 using System.Diagnostics;
 using System.Collections.Generic;
-using static StudyTest.Recursive;
 
 namespace TestCase
 {
@@ -110,6 +109,22 @@ namespace TestCase
             myRecursive.getAllPhone("234", 0, "", map);
         }
 
+        [TestMethod]
+        public void PhoneTest2()
+        {
+            Dictionary<char, string> map = new Dictionary<char, string>()
+            {
+                {'1', " "}, 
+                {'2',"ABC"}, {'3', "DEF"}, {'4', "GHI"}, {'5', "JKL"},
+                {'6',"MNO"}, {'7', "PQRS"}, {'8', "TUV"}, {'9', "WXYZ"}
+            };
+
+            Recursive myRecursive = new Recursive();
+            int[] phonenumber = { 2, 3, 4 };
+            char[] output = new char[phonenumber.Length];
+            myRecursive.getAllPhone2(phonenumber, 0, output, map);
+        }
+
 
         [TestMethod]
         public void LCATreeTest()
@@ -129,7 +144,7 @@ namespace TestCase
             LCAnode = myRecursive.FindLCA(root, 5, 10);
             Assert.AreEqual(9, LCAnode.value);
 
-            LCAnode = myRecursive.FindLCA(root, 15, 6);
+            LCAnode = myRecursive.FindLCA(root, 5, 6);
             Assert.AreEqual(5, LCAnode.value);
         }
 
@@ -149,7 +164,7 @@ namespace TestCase
         {
             Node root = new Node(7);                    //          7
             root.left = new Node(5);                    //         / \
-            root.right = new Node(1);                   //        5   8
+            root.right = new Node(8);                   //        5   8
             //root.left.right = new Node(6);              //         \
             //                                            //          6
 
@@ -195,7 +210,7 @@ namespace TestCase
         public void NQueenTest()
         {
             int numberOfQueen = 4;
-            List<position> post = new List<position>();
+            List<StudyTest.Recursive.position> post = new List<StudyTest.Recursive.position>();
 
             if (Recursive.Q(post, numberOfQueen, 0))
             {

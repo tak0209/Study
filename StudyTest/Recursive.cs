@@ -198,6 +198,27 @@ namespace StudyTest
 
         }
 
+        //this is a better solution since no need to remove substring like the other solution
+        //it use re-assign new digit to output char each time to "backtrack??"
+        public void getAllPhone2(int[] number, int curr_digit_idx, char[] output, Dictionary<char, string> map)
+        {
+            // Base case - when all the digit in one combination is done, write it out.
+            if (curr_digit_idx == number.Length)
+            {
+                Debug.Print(new string(output));
+                return;
+            }
+
+            // Try all 3 possible characters for current digir in number[]
+            // and recur for remaining digits
+            char dig = Char.Parse(number[curr_digit_idx].ToString());
+            for (int i = 0; i < map[dig].Count(); i++)
+            {
+                output[curr_digit_idx] = map[dig][i];
+                getAllPhone2(number, curr_digit_idx + 1, output, map);
+            }
+        }
+
         public Node FindLCA(Node node, int v1, int v2)
         {
             if (node == null)
