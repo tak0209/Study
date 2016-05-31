@@ -3,12 +3,19 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StudyTest;
 using System.Diagnostics;
 using System.Collections.Generic;
+using static StudyTest.Recursive;
 
 namespace TestCase
 {
     [TestClass]
     public class RecursiveTest
     {
+        [TestMethod]
+        public void SetTest()
+        {
+            Recursive.set("", "abc");
+        }
+
         [TestMethod]
         public void SumTest()
         {
@@ -86,7 +93,7 @@ namespace TestCase
             bool[] v = new bool[100];
             List<string> results = new List<string>();
 
-            Recursive.permWithDFS("abc", "", v, results);
+            Recursive.permWithDFS("ab", "", v, results);
         }
 
         [TestMethod]
@@ -94,7 +101,7 @@ namespace TestCase
         {
             Dictionary<char, string> map = new Dictionary<char, string>()
             {
-                {'1', ""}, 
+                {'1', ""},
                 {'2',"ABC"}, {'3', "DEF"}, {'4', "GHI"}, {'5', "JKL"},
                 {'6',"MNO"}, {'7', "PQRS"}, {'8', "TUV"}, {'9', "WXYZ"}
             };
@@ -183,18 +190,48 @@ namespace TestCase
         {
             var ret = Recursive.compareVersion("1.2", "1.2.1");
         }
-        //[TestMethod]
-        //public void PS3Test()
-        //{
-        //    List<string> powerSet = new List<string>();
-        //    Recursive.PS3("", "123", powerSet);
-        //}
 
-        //[TestMethod]
-        //public void PS()
-        //{
-        //    List<string> testResult = new List<string>();
-        //    Recursive.powerSet2(new int[] { 1, 2, 3 }, 2, "", testResult);
-        //}
+        [TestMethod]
+        public void NQueenTest()
+        {
+            int numberOfQueen = 4;
+            List<position> post = new List<position>();
+
+            if (Recursive.Q(post, numberOfQueen, 0))
+            {
+                for (int i = 0; i < numberOfQueen; i++)
+                {
+                    for (int j = 0; j < numberOfQueen; j++)
+                    {
+                        bool matched = false;
+                        foreach (var p in post)
+                        {
+                            if (p.row == i && p.col == j)
+                            {
+                                Console.Write(" Q ");
+                                matched = true;
+                            }
+                        }
+                        if (!matched)
+                            Console.Write(" * ");
+                    }
+                    Console.WriteLine("");
+                }
+            }
+        }
     }
+
+    //[TestMethod]
+    //public void PS3Test()
+    //{
+    //    List<string> powerSet = new List<string>();
+    //    Recursive.PS3("", "123", powerSet);
+    //}
+
+    //[TestMethod]
+    //public void PS()
+    //{
+    //    List<string> testResult = new List<string>();
+    //    Recursive.powerSet2(new int[] { 1, 2, 3 }, 2, "", testResult);
+    //}
 }

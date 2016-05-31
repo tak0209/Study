@@ -253,11 +253,12 @@ namespace StudyTest
         //6.     P("acb","") 
         public void permWithPrefix(String prefix, String input)
         {
-            if (input.Length <= 0)
+            int n = input.Length;
+            if (n <= 0)
                 Debug.Print(prefix);
             else
             {
-                for (int i = 0; i < input.Length; i++)
+                for (int i = 0; i < n; i++)
                 {
                     permWithPrefix(prefix + input[i], input.Substring(0, i) + input.Substring(i + 1));
                 }
@@ -287,8 +288,8 @@ namespace StudyTest
             }
         }
 
-        // P(ab) = a + P(b) U P(b)      => a + {b, ""} U {b, ""} => {ab, a, b, ""}
-        // P(b) = b + P("") U P("")     => {b, ""}
+        // P(ab) = [a + P(b)] U [P(b)]      => a + {b, ""} U {b, ""} => {ab, a, b, ""}
+        // P(b)  = [b + P("")] U [P("")]    => {b, ""}
         // P("") = ""
         public static void FindPowerSet(String str, int currentIdx, List<String> powerSet)
         {
@@ -384,7 +385,6 @@ namespace StudyTest
             }
         }
 
-
         ////http://www.careercup.com/question?id=4356911
         //public static void powerSet2(int[] elements, int n, string end,  List<string> r)
         //{
@@ -431,7 +431,7 @@ namespace StudyTest
             {
                 //if m1 has a digit then use it else it's consider a 0; 
                 //i,e. 1.2 compare to 1.3.1 will use 1.2.0 instead of 1.2
-                int v1 = (i < m1.Length ? Convert.ToInt32(m1[i]) : 0);     
+                int v1 = (i < m1.Length ? Convert.ToInt32(m1[i]) : 0);
                 int v2 = (i < m2.Length ? Convert.ToInt32(m2[i]) : 0);
                 if (v1 > v2)
                 {
@@ -472,5 +472,61 @@ namespace StudyTest
             return (!s.Any());
         }
 
+        public static void set(string newSet, string inp)
+        {
+            Debug.Print(newSet);
+
+            int n = inp.Length;
+
+            for (int i = 0; i < n; i++)
+            {
+                set(newSet + inp[i], inp.Substring(0, i) + inp.Substring(i + 1));
+            }
+        }
+
+        public static bool Q(List<position> post, int numberOfQueen, int row)
+        {
+            if (numberOfQueen == row)
+            {
+                return true;
+            }
+
+            for (int col = 0; col < numberOfQueen; col++)
+            {
+                if (isGoodMove(post, numberOfQueen, row, col))
+                {
+                    post.Add(new position(row, col));
+                    if (Q(post, numberOfQueen, row + 1))
+                        return true;
+                    post.RemoveAt(post.Count() - 1);
+                }
+            }
+
+            return false;
+        }
+
+        private static bool isGoodMove(List<position> post, int numberOfQueen, int row, int col)
+        {
+            foreach (var p in post)
+            {
+                if (p.col == col) return false;
+                if (p.row == row) return false;
+                if (Math.Abs(p.col - col) == Math.Abs(p.row - row)) return false;
+            }
+
+            return true;
+        }
+
+        public class position
+        {
+            public int row;
+            public int col;
+
+            public position(int row, int col)
+            {
+                this.row = row;
+                this.col = col;
+            }
+        }
     }
 }
