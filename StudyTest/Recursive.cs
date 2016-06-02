@@ -526,6 +526,61 @@ namespace StudyTest
             return false;
         }
 
+        public static bool MazeRun(bool[,] maze, List<position> post, int row, int col)
+        {
+            if (maze.GetLength(0) == row)
+            {
+                return true;
+            }
+
+            for (int c = col; c < maze.GetLength(1); c++)
+            {
+                if (isValidMazeMove(maze, row, c))
+                {
+                    post.Add(new position(row, c));
+                    if (MazeRun(maze, post, row + 1, c))
+                        return true;
+                }
+                else
+                    return false;
+            }
+            post.RemoveAt(post.Count() - 1);
+            return false;
+        }
+
+        public static bool MazeRun2(bool[,] maze, List<position> post, int row, int col)
+        {
+            var n = post.Count();
+            if (n > 0)
+            {
+                if (post[n - 1].row == maze.GetLength(0) - 1 && post[n - 1].col == maze.GetLength(1) - 1)
+                {
+                    return true;
+                }
+            }
+
+            if (isValidMazeMove(maze, row, col))
+            {
+                post.Add(new position(row, col));
+                if (MazeRun2(maze, post, row, col + 1))
+                    return true;
+
+                if (MazeRun2(maze, post, row + 1, col))
+                    return true;
+
+                post.RemoveAt(post.Count() - 1);
+
+                return false;
+            }
+            return false;
+        }
+
+        private static bool isValidMazeMove(bool[,] maze, int row, int col)
+        {
+
+            return maze[row, col];
+        }
+
         private static bool isGoodMove(List<position> post, int numberOfQueen, int row, int col)
         {
             foreach (var p in post)
@@ -536,6 +591,46 @@ namespace StudyTest
             }
 
             return true;
+        }
+
+        public static void QSort(int[] numbers, int start, int end)
+        {
+            if (start < end)
+            {
+                int pIdx = partitation(numbers, start, end);
+                QSort(numbers, start, pIdx - 1);
+                QSort(numbers, pIdx + 1, end);
+            }
+
+            return;
+        }
+
+        private static int partitation(int[] numbers, int start, int end)
+        {
+            int pivot = numbers[end];
+            int pIdx = start;
+            for (int i = start; i < end; i++)
+            {
+                if (numbers[i] <= pivot)
+                {
+                    //swap pIdx with element i value to get the left list (smaller of pivot on the left side)
+                    swapInt2(ref numbers[pIdx], ref numbers[i]);
+
+                    //move pIdx to next element
+                    pIdx++;
+                }
+            }
+
+            //move pivot to the new pviot position
+            swapInt2(ref numbers[pIdx], ref numbers[end]);
+            return pIdx;
+        }
+
+        private static void swapInt2(ref int v1, ref int v2)
+        {
+            int temp = v1;
+            v1 = v2;
+            v2 = temp;
         }
 
         public class position

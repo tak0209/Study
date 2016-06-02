@@ -10,6 +10,13 @@ namespace TestCase
     public class RecursiveTest
     {
         [TestMethod]
+        public void QSortTest()
+        {
+            int[] n = { 7, 2, 1, 6, 8, 5, 3, 4 };
+            Recursive.QSort(n, 0, n.Length-1);
+        }
+
+        [TestMethod]
         public void SetTest()
         {
             Recursive.set("", "abc");
@@ -229,6 +236,40 @@ namespace TestCase
                         }
                         if (!matched)
                             Console.Write(" * ");
+                    }
+                    Console.WriteLine("");
+                }
+            }
+        }
+
+        [TestMethod]
+        public void MazeTest()
+        {
+            List<StudyTest.Recursive.position> post = new List<StudyTest.Recursive.position>();
+            bool[,] maze = { { true, false, false, false }, { true, true, false, true }, { true, true, false, false } , { true, true, true, true } };
+
+            if (Recursive.MazeRun(maze, post, 0, 0))
+            {
+                for (int i = 0; i < maze.GetLength(0); i++)
+                {
+                    for (int j = 0; j < maze.GetLength(1); j++)
+                    {
+                        bool matched = false;
+                        foreach (var p in post)
+                        {
+                            if (p.row == i && p.col == j)
+                            {
+                                Console.Write(" R ");
+                                matched = true;
+                            }
+                        }
+                        if (!matched)
+                        {
+                            if (maze[i, j])
+                                Console.Write(" 1 ");
+                            else
+                                Console.Write(" 0 ");
+                        }
                     }
                     Console.WriteLine("");
                 }
