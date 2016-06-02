@@ -11,7 +11,6 @@ namespace StudyTest
     {
         public static GraphNode CloneGraph(GraphNode root)
         {
-            Dictionary<int, GraphNode> map = new Dictionary<int, GraphNode>();
             Queue<GraphNode> q = new Queue<GraphNode>();
 
             q.Enqueue(root);
@@ -21,35 +20,25 @@ namespace StudyTest
             while (q.Any())
             {
                 GraphNode n = q.Dequeue();
-                if (!map.ContainsKey(n.Value))
-                {
-                    currentNode = new GraphNode() { Value = n.Value, Childern = new List<GraphNode>() };
-                    map.Add(currentNode.Value, currentNode);
+                currentNode = new GraphNode() { Value = n.Value, Childern = new List<GraphNode>() };
 
-                    if (map.Count() == 1)
-                    {
-                        newGraph = currentNode;
-                    }
+                if (newGraph == null)
+                {
+                    newGraph = currentNode;
                 }
                 else
                 {
-                    currentNode = map[n.Value];
+                    newGraph.Childern.Add(currentNode);
                 }
 
-                if (n.Childern != null)
+                foreach (GraphNode c in n.Childern)
                 {
-                    foreach (GraphNode c in n.Childern)
+                    if (!c.Visited)
                     {
-                        if (!c.Visited)
-                        {
-                            GraphNode g = new GraphNode() { Value = c.Value, Childern = new List<GraphNode>() }; ;
-                            map.Add(g.Value, g);
-
-                            currentNode.Childern.Add(g);
-                            q.Enqueue(c);
-                            c.Visited = true;
-                            //Debug.Print(c.Value.ToString());
-                        }
+                        currentNode.Childern.Add(c);
+                        q.Enqueue(c);
+                        c.Visited = true;
+                        //Debug.Print(c.Value.ToString());
                     }
                 }
             }
@@ -69,15 +58,12 @@ namespace StudyTest
                 GraphNode n = q.Dequeue();
                 Debug.Print(n.Value.ToString());                //1 2 3 5 4
 
-                if (n.Childern != null)
+                foreach (GraphNode c in n.Childern)
                 {
-                    foreach (GraphNode c in n.Childern)
+                    if (!c.Visited)
                     {
-                        if (!c.Visited)
-                        {
-                            q.Enqueue(c);
-                            c.Visited = true;
-                        }
+                        q.Enqueue(c);
+                        c.Visited = true;
                     }
                 }
             }
@@ -97,12 +83,15 @@ namespace StudyTest
                 var node = s.Pop();
                 Debug.Print(node.Value.ToString());
 
+                //Adding the reverse order to show it's actually doing depth first else it looks like BFS
+                //http://stackoverflow.com/questions/9201166/iterative-dfs-vs-recursive-dfs-and-different-elements-order
                 foreach (GraphNode child in node.Childern.ToArray().Reverse())
                 {
                     if (!child.Visited)
                     {
                         //mark visited as in going to stack
-                        child.Visited = true;                    //this prevent circular elements printed more than once
+                        //this prevent circular elements printed more than once
+                        child.Visited = true;
                         s.Push(child);
                     }
                 }
@@ -124,6 +113,7 @@ namespace StudyTest
             }
         }
 
+        //This DFS will use the instructional stack and it's only use with tree (grapth can contain circular path)
         public static void PreOrderDFS(GraphNode n)
         {
             Debug.Print(n.Value.ToString());
@@ -134,6 +124,7 @@ namespace StudyTest
             }
         }
 
+        //This DFS will use the instructional stack and it's only use with tree (grapth can contain circular path)
         public static void PostOrderDFS(GraphNode n)
         {
             foreach (var child in n.Childern)
