@@ -83,35 +83,70 @@ namespace StudyTest
             }
         }
 
-     
-        public static void DFS(GraphNode root)
+        //Visited flag is needed when traverse a graph since it may have circular reference
+        //vs in a tree, we can use instruction stack implicitly pushing node into stack
+        //DFS should be depth first if the other of the child is in the right order
+        public static void DFSwithStack(GraphNode n)
         {
             Stack<GraphNode> s = new Stack<GraphNode>();
-            s.Push(root);
-            root.Visited = true;
+            n.Visited = true;
+            s.Push(n);
 
             while (s.Any())
             {
-                GraphNode n = s.Pop();
-                if (n.Childern != null)
+                var node = s.Pop();
+                Debug.Print(node.Value.ToString());
+
+                foreach (GraphNode child in node.Childern.ToArray().Reverse())
                 {
-                    foreach (GraphNode gn in n.Childern)
+                    if (!child.Visited)
                     {
-                        if (!gn.Visited)
-                        {
-                            Debug.Print(gn.Value.ToString());  //Top to bottom; missing the root node  2 3 5 4
-                            s.Push(gn);
-                            gn.Visited = true;
-                        }
+                        //mark visited as in going to stack
+                        child.Visited = true;                    //this prevent circular elements printed more than once
+                        s.Push(child);
                     }
                 }
-
-                //n = s.Pop();
-                //Debug.Print(n.Value.ToString());                //print bottom to top   3 4 5 2 1
             }
         }
 
+        //Recursive with visited flag
+        public static void DFSwithStack2(GraphNode n)
+        {
+            Debug.Print(n.Value.ToString());
+            n.Visited = true;
+
+            foreach (GraphNode child in n.Childern)
+            {
+                if (!child.Visited)
+                {
+                    DFSwithStack2(child);
+                }
+            }
+        }
+
+        public static void PreOrderDFS(GraphNode n)
+        {
+            Debug.Print(n.Value.ToString());
+
+            foreach (var child in n.Childern)
+            {
+                PreOrderDFS(child);
+            }
+        }
+
+        public static void PostOrderDFS(GraphNode n)
+        {
+            foreach (var child in n.Childern)
+            {
+                PostOrderDFS(child);
+            }
+
+            Debug.Print(n.Value.ToString());
+        }
+
         //http://blogs.msdn.com/b/daveremy/archive/2010/03/16/non-recursive-post-order-depth-first-traversal.aspx
+        //??? this should be same as DFS since it use the function stack to push all childer nodes
+        //then pop it with recursion
         public static void recursivePostOrder(GraphNode node)
         {
             if (node.Childern != null)
