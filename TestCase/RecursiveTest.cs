@@ -13,13 +13,7 @@ namespace TestCase
         public void QSortTest()
         {
             int[] n = { 7, 2, 1, 6, 8, 5, 3, 4 };
-            Recursive.QSort(n, 0, n.Length-1);
-        }
-
-        [TestMethod]
-        public void SetTest()
-        {
-            Recursive.set("", "abc");
+            Recursive.QSort(n, 0, n.Length - 1);
         }
 
         [TestMethod]
@@ -121,7 +115,7 @@ namespace TestCase
         {
             Dictionary<char, string> map = new Dictionary<char, string>()
             {
-                {'1', " "}, 
+                {'1', " "},
                 {'2',"ABC"}, {'3', "DEF"}, {'4', "GHI"}, {'5', "JKL"},
                 {'6',"MNO"}, {'7', "PQRS"}, {'8', "TUV"}, {'9', "WXYZ"}
             };
@@ -186,18 +180,33 @@ namespace TestCase
             Recursive.FindPowerSet("AB", 0, powerSet);
         }
 
+        //Find combination of brackets using power set algo
+        [TestMethod]
+        public void FindBrackets()
+        {
+            List<string> powerSet = new List<string>();
+            Recursive.FindBracketSet(4, powerSet);
+
+            foreach (var s in powerSet)
+            {
+                Debug.Print(s);
+            }
+
+            //Assert.AreEqual(powerSet.Count, 9);
+        }
+
+        //Find combination of brackets using open and close tracking 
+        [TestMethod]
+        public void BracketsTest()
+        {
+            Recursive.Brackets(3);
+        }
+
         [TestMethod]
         public void sortedArrayToBSTTest()
         {
             int[] a = new int[] { 1, 2, 3 };
             Recursive.SortedArrayToBST(a, 0, a.Length - 1);
-        }
-
-
-        [TestMethod]
-        public void BracketsTest()
-        {
-            Recursive.Brackets(2);
         }
 
         [TestMethod]
@@ -219,7 +228,7 @@ namespace TestCase
             int numberOfQueen = 4;
             List<StudyTest.Recursive.position> post = new List<StudyTest.Recursive.position>();
 
-            if (Recursive.Q(post, numberOfQueen, 0))
+            if (Recursive.Queen(post, numberOfQueen, 0))
             {
                 for (int i = 0; i < numberOfQueen; i++)
                 {
@@ -246,9 +255,13 @@ namespace TestCase
         public void MazeTest()
         {
             List<StudyTest.Recursive.position> post = new List<StudyTest.Recursive.position>();
-            bool[,] maze = { { true, false, false, false }, { true, true, false, true }, { true, true, false, false } , { true, true, true, true } };
+            bool[,] maze = {
+                { true, false, false, false },
+                { true, true, false, true },
+                { true, true, false, false },
+                { true, true, true, true } };
 
-            if (Recursive.MazeRun(maze, post, 0, 0))
+            if (Recursive.MazeRun2(maze, post, 0, 0))
             {
                 for (int i = 0; i < maze.GetLength(0); i++)
                 {
@@ -274,6 +287,20 @@ namespace TestCase
                     Console.WriteLine("");
                 }
             }
+        }
+
+        [TestMethod]
+        public void FindWordPath()
+        {
+            List<StudyTest.Recursive.position> post = new List<StudyTest.Recursive.position>();
+            char[,] puzzle = {
+                { 'A', 'B', 'C', 'X' },
+                { 'D', 'E', 'F', 'Y'},
+                { 'G', 'H', 'I', 'W' },
+                { 'J', 'K', 'L', 'Z' }
+                };
+
+                Recursive.WordPuzzle(puzzle, "AEHIL", post);
         }
     }
 

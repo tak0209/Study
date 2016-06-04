@@ -9,6 +9,8 @@ namespace StudyTest
 {
     public class Recursive
     {
+        //Sample of simple recursive 
+        //Adding number from n to n-1 until n=1
         public int Sum(int n)
         {
             if (n == 1)
@@ -20,6 +22,7 @@ namespace StudyTest
             }
         }
 
+        //Another simple recursive for n!
         public int Fact(int n)
         {
             if (n == 0)
@@ -32,6 +35,7 @@ namespace StudyTest
             }
         }
 
+        //One more simple recursive: In order travesal  L-N-R
         public void InOrderTraverseTree(Node node)
         {
             if (node == null)
@@ -44,6 +48,7 @@ namespace StudyTest
             InOrderTraverseTree(node.right);
         }
 
+        //Check for Panalidrom of a string with recursive (shortner string as it found 2 end chars are matched)
         public bool IsPanalidrom(string s)
         {
             if (string.IsNullOrEmpty(s) || s.Length == 1)
@@ -59,6 +64,7 @@ namespace StudyTest
             return false;
         }
 
+        //? Peacwise???
         public int Peacewise(int x)
         {
             if (x < 7)
@@ -160,7 +166,7 @@ namespace StudyTest
         //}
         #endregion
 
-        //*
+        // Get all combination of a phone number in chars
         // 1> pick one char from the current digit
         // 2> add char to the final string
         // 3> get the next digit from input and repeat from step 1 until all digits are processed in current run
@@ -198,6 +204,7 @@ namespace StudyTest
 
         }
 
+        // Better! Use char[] to build new string; Get all combination of a phone number in chars
         //this is a better solution since no need to remove substring like the other solution
         //it use re-assign new digit to output char each time to "backtrack??"
         public void getAllPhone2(int[] number, int curr_digit_idx, char[] output, Dictionary<char, string> map)
@@ -219,6 +226,7 @@ namespace StudyTest
             }
         }
 
+        //Find LCA of 2 numbers
         public Node FindLCA(Node node, int v1, int v2)
         {
             if (node == null)
@@ -239,19 +247,20 @@ namespace StudyTest
             return node;
         }
 
-        public bool isBST(Node root, Node prev)
+        //Test BST
+        public bool isBST(Node n, Node prev)
         {
-            if (root == null)
+            if (n == null)
                 return true;
 
-            if (!isBST(root.left, prev))
+            if (!isBST(n.left, prev))
                 return false;
 
-            if (prev != null && root.value <= prev.value)
+            if (prev != null && n.value <= prev.value)
                 return false;
 
-            prev = root;
-            return isBST(root.right, prev);
+            prev = n;
+            return isBST(n.right, prev);
         }
 
         //*Alt solution with explaination  
@@ -286,8 +295,7 @@ namespace StudyTest
             }
         }
 
-
-        //DFS algo
+        //DFS for string permutation
         //http://exceptional-code.blogspot.com/2012/09/generating-all-permutations.html
         public static void permWithDFS(string input, string newStr, bool[] visited, List<string> results)
         {
@@ -382,14 +390,42 @@ namespace StudyTest
             }
         }
 
+        //**  Need more work on this!!
+        //simplier way to find all combination of brackets
+        public static void FindBracketSet(int n, List<String> powerSet)
+        {
+            if (n == 1)
+            {
+                powerSet.Add("{}");
+                return;
+            }
+
+            FindBracketSet(n - 1, powerSet);
+
+            List<String> newCombos = new List<String>();
+            for (int i=0; i<powerSet.Count;i++)
+            {
+                newCombos.Add("{" + powerSet[i] + "}");
+                newCombos.Add("{}" + powerSet[i]);
+                if ("{}" + powerSet[i] != powerSet[i] + "{}")
+                    newCombos.Add(powerSet[i] + "{}");
+            }
+
+            powerSet.AddRange(newCombos);
+
+        }
+
         public static void Brackets(int n)
         {
             for (int i = 1; i <= n; i++)
             {
                 Brackets("", 0, 0, i);
+                //Debug.Print("-----------------------");
             }
         }
 
+        //http://www.geeksforgeeks.org/print-all-combinations-of-balanced-parentheses/
+        //Catalan number concept behind this https://www.youtube.com/watch?v=m9Khxn2g-6w
         private static void Brackets(string output, int open, int close, int pairs)
         {
             if ((open == pairs) && (close == pairs))
@@ -493,19 +529,8 @@ namespace StudyTest
             return (!s.Any());
         }
 
-        public static void set(string newSet, string inp)
-        {
-            Debug.Print(newSet);
-
-            int n = inp.Length;
-
-            for (int i = 0; i < n; i++)
-            {
-                set(newSet + inp[i], inp.Substring(0, i) + inp.Substring(i + 1));
-            }
-        }
-
-        public static bool Q(List<position> post, int numberOfQueen, int row)
+        //N-Queens
+        public static bool Queen(List<position> post, int numberOfQueen, int row)
         {
             if (numberOfQueen == row)
             {
@@ -517,7 +542,7 @@ namespace StudyTest
                 if (isGoodMove(post, numberOfQueen, row, col))
                 {
                     post.Add(new position(row, col));
-                    if (Q(post, numberOfQueen, row + 1))
+                    if (Queen(post, numberOfQueen, row + 1))
                         return true;
                     post.RemoveAt(post.Count() - 1);
                 }
@@ -526,28 +551,7 @@ namespace StudyTest
             return false;
         }
 
-        public static bool MazeRun(bool[,] maze, List<position> post, int row, int col)
-        {
-            if (maze.GetLength(0) == row)
-            {
-                return true;
-            }
-
-            for (int c = col; c < maze.GetLength(1); c++)
-            {
-                if (isValidMazeMove(maze, row, c))
-                {
-                    post.Add(new position(row, c));
-                    if (MazeRun(maze, post, row + 1, c))
-                        return true;
-                }
-                else
-                    return false;
-            }
-            post.RemoveAt(post.Count() - 1);
-            return false;
-        }
-
+        // Maze!
         public static bool MazeRun2(bool[,] maze, List<position> post, int row, int col)
         {
             var n = post.Count();
@@ -575,9 +579,110 @@ namespace StudyTest
             return false;
         }
 
+        //Word in matrix
+        //Here's a recursive version 
+        //http://algorithms.tutorialhorizon.com/backtracking-search-a-word-in-a-matrix/
+        //algo: recursive call to all 8 direction, if false return and back track (remove the last move from the origin of first caller)
+        public static bool WordPuzzle(char[,] b, string input, List<position> route)
+        {
+            //find the first char
+            for (int i=0; i< b.GetLength(0); i++)
+            {
+                for (int j=0; j< b.GetLength(1); j++)
+                {
+                    if (b[i,j]== input[0])
+                    {
+                        route.Add(new position(i, j));
+                        return WordPuzzleUtil(b, input, 1, i, j, route);
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public static bool WordPuzzleUtil(char[,] b, string input, int charIdx, int row, int col, List<position> route)
+        {
+            while (input.Length> charIdx)
+            {
+                if (!nextMove(b, input, charIdx, ref row, ref col, route))
+                {
+                    return false;
+                }
+
+                charIdx++;
+            }
+
+            return true;
+        }
+
+        private static bool nextMove(char[,] b, string input, int charIdx, ref int row, ref int col, List<position> route)
+        {
+            char targetChar = input[charIdx];
+            int maxRow = b.GetLength(0);
+            int maxCol = maxRow;
+
+            //check next row; same col
+            if (row+1 <= maxRow && b[row+1, col] == targetChar)
+            {
+                route.Add(new position(++row, col));
+                return true;
+            }
+
+            //check upper row; same col
+            if (row-1 >= 0&& b[row-1, col] == targetChar)
+            {
+                route.Add(new position(--row, col));
+                return true;
+            }
+
+            //check next col; same row
+            if (col+1 <= maxCol && b[row, col+1] == targetChar)
+            {
+                route.Add(new position(row, ++col));
+                return true;
+            }
+
+            //check left side col; same row
+            if (col-1 >= 0&& b[row, col-1] == targetChar)
+            {
+                route.Add(new position(row, --col));
+                return true;
+            }
+
+            //check upper left corner
+            if (row-1 >= 0&&  col-1 >= 0&& b[row-1, col-1] == targetChar)
+            {
+                route.Add(new position(--row, --col));
+                return true;
+            }
+
+            //check lower left corner
+            if (row+1 <= maxRow && col-1 >= 0&& b[row+1, col-1] == targetChar)
+            {
+                route.Add(new position(++row, --col));
+                return true;
+            }
+
+            //check upper right corner
+            if (row-1 >= 0&& col+1 <= maxCol && b[row-1, col+1] == targetChar)
+            {
+                route.Add(new position(--row, ++col));
+                return true;
+            }
+
+            //check lower right corner
+            if (row+1 <= maxRow && col+1 <= maxCol && b[row+1, col+1] == targetChar)
+            {
+                route.Add(new position(++row, ++col));
+                return true;
+            }
+
+            return false;
+        }
+
         private static bool isValidMazeMove(bool[,] maze, int row, int col)
         {
-
             return maze[row, col];
         }
 
