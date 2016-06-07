@@ -202,6 +202,20 @@ namespace StudyTest
             }
         }
 
+        //DP for MSS
+        public static int MSS2(int[] a)
+        {
+            int max = a[0];
+            int currentMax = a[0];
+
+            for (int i = 0; i < a.Length; i++)
+            {
+                currentMax = Math.Max(a[i], currentMax + a[i]);
+                max = Math.Max(currentMax, max);
+            }
+            return max;
+        }
+
         public static int MSS(int[] a)
         {
             int max = 0;
@@ -221,6 +235,21 @@ namespace StudyTest
                 max = Math.Max(max, sum);
             }
             return max;
+        }
+
+        //DP?
+        public static int maxOneProfit2(int[] a)
+        {
+            int minPrice = a[0];
+            int profit = 0;
+
+            for (int i=1; i< a.Length; i++)
+            {
+                profit = Math.Max(profit, a[i] - minPrice);
+                minPrice = Math.Min(minPrice, a[i]);
+            }
+
+            return profit;
         }
 
         public static int maxOneProfit(int[] prices)
