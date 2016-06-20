@@ -9,6 +9,105 @@ namespace StudyTest
 {
     public class Graph
     {
+        public static int WordLadder(string beginWord, string endWord, HashSet<string> dict)
+        {
+            List<string> path = new List<string>();
+            int step = 0;
+            bool done = false;
+
+            string currentWord = beginWord;
+            path.Add(currentWord);
+            while (!done)
+            {
+        
+                if (currentWord == endWord)
+                {
+                    return step++;
+                }
+
+                char[] arr = currentWord.ToCharArray();
+                for (int i = 0; i < arr.Length; i++)    //swap out one char a time and check with dictionary
+                {
+                    for (char c = 'a'; c <= 'z'; c++)
+                    {
+                        char temp = arr[i];
+                        if (arr[i] != c)
+                        {
+                            arr[i] = c;
+                        }
+
+                        String newWord = new String(arr);
+                        if (dict.Contains(newWord))
+                        {
+                            currentWord = newWord;
+                            path.Add(currentWord);
+                            step++;
+                            dict.Remove(newWord);
+                            i = 0;
+                            break;
+                        }
+
+                        arr[i] = temp;
+                    }
+                }
+            }
+
+            return 0;
+        }
+        public static int WordLadderOld(string beginWord, string endWord, HashSet<string> dict)
+        {
+            Queue<WordNode> queue = new Queue<WordNode>();
+            queue.Enqueue(new WordNode(beginWord, 1));
+
+            while (queue.Any())
+            {
+                WordNode top = queue.Dequeue();
+                String word = top.word;
+
+                if (word ==endWord)
+                {
+                    return top.numSteps;
+                }
+
+                char[] arr = word.ToCharArray();
+                for (int i = 0; i < arr.Length; i++)    //swap out one char a time and check with dictionary
+                {
+                    for (char c = 'a'; c <= 'z'; c++)
+                    {
+                        char temp = arr[i];
+                        if (arr[i] != c)
+                        {
+                            arr[i] = c;
+                        }
+
+                        String newWord = new String(arr);
+                        if (dict.Contains(newWord))
+                        {
+                            queue.Enqueue(new WordNode(newWord, top.numSteps + 1));
+                            dict.Remove(newWord);
+                        }
+
+                        arr[i] = temp;
+                    }
+                }
+            }
+
+            return 0;
+        }
+
+        private static bool isValid(GraphNode p, string target)
+        {
+            foreach (var c in p.SValue)
+            {
+                foreach(var tc in target)
+                {
+                    if (c == tc)
+                        return true;
+                }
+            }
+            return false;
+        }
+
         public static GraphNode CloneGraph(GraphNode root)
         {
             Queue<GraphNode> q = new Queue<GraphNode>();
@@ -133,26 +232,6 @@ namespace StudyTest
             }
 
             Debug.Print(n.Value.ToString());
-        }
-
-        //http://blogs.msdn.com/b/daveremy/archive/2010/03/16/non-recursive-post-order-depth-first-traversal.aspx
-        //??? this should be same as DFS since it use the function stack to push all childer nodes
-        //then pop it with recursion
-        public static void recursivePostOrder(GraphNode node)
-        {
-            if (node.Childern != null)
-            {
-                foreach (var n in node.Childern)
-                {
-                    recursivePostOrder(n);
-                }
-            }
-            // Do action
-            if (!node.Visited)
-            {
-                node.Visited = true;
-                Debug.Print(node.Value.ToString());
-            }
         }
     }
 }

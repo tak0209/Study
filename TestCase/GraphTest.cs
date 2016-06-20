@@ -16,13 +16,13 @@ namespace TestCase
         static List<GraphNode> TG = new List<GraphNode>();
         //Graph that doesn't look a tress since there are some circular paths
         static List<GraphNode> G = new List<GraphNode>();
-        static GraphNode g1 = new GraphNode {Value = 1};
+        static GraphNode g1 = new GraphNode { Value = 1 };
         static GraphNode g2 = new GraphNode { Value = 2 };
         static GraphNode g3 = new GraphNode { Value = 3 };
         static GraphNode g4 = new GraphNode { Value = 4 };
         static GraphNode g5 = new GraphNode { Value = 5 };
         static GraphNode g6 = new GraphNode { Value = 6 };
-           
+
         private static void SetupGraph()
         {
             g1.Childern = new List<GraphNode> { g2, g3 };
@@ -112,14 +112,10 @@ namespace TestCase
         }
 
         [TestMethod]
-        public void TestDFS()
+        public void TestWordLadder()
         {
-            SetupGraph();
-            foreach (var n in G)
-            {
-                Graph.recursivePostOrder(n);               
-            }
-            //Graph.DFS(g);
+            var steps = Graph.WordLadder("hit", "cog", new HashSet<string>() { "hot", "dot", "dog", "lot", "log", "cog" });
         }
+
     }
 }

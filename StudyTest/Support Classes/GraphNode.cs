@@ -8,6 +8,8 @@ namespace StudyTest
     public class GraphNode
     {
         public int Value { get; set; }
+
+        public string SValue { get; set; }
         public bool Visited { get; set; }
         public List<GraphNode> Childern { get; set; }
 

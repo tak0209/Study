@@ -10,6 +10,36 @@ namespace TestCase
     public class RecursiveTest
     {
         [TestMethod]
+        //Not finish solution... should use BFS?
+        public void TestPath()
+        {                                                                 //                       b
+            Station a = new Station('a');                                 //                       ^
+            Station b = new Station('b');                                 //                   t1/    \t1
+            Station c = new Station('c');                                 //                    /      \
+                                                                          //                  a -------- c
+                                                                          //                        t2
+            Path p1 = new Path('1', b, a);
+            Path p2 = new Path('1', a, c);
+            Path p3 = new Path('2', b, c);
+
+            Train t1 = new Train() { name = '1', paths = new List<Path>() { p1, p2 } };
+            Train t2 = new Train() { name = '2', paths = new List<Path>() { p3 } };
+
+            a.trains.Add(t1);
+            a.trains.Add(t2);
+            b.trains.Add(t2);
+
+            List<Path> allPath = new List<Path>();
+
+            var paths = Recursive.findShortestTrainPath(a, c);
+
+            foreach(var p in paths)
+            {
+                Debug.Print(string.Format("%c - from: %c  to: %c", p.trainName, p.start.name, p.end.name));
+            }
+        }
+
+        [TestMethod]
         public void QSortTest()
         {
             int[] n = { 7, 2, 1, 6, 8, 5, 3, 4 };
@@ -300,7 +330,7 @@ namespace TestCase
                 { 'J', 'K', 'L', 'Z' }
                 };
 
-                Recursive.WordPuzzle(puzzle, "AEHIL", post);
+            Recursive.WordPuzzle(puzzle, "AEHIL", post);
         }
     }
 

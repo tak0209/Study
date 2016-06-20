@@ -12,27 +12,16 @@ namespace TestCase
     public class ArrayTest
     {
         [TestMethod]
+        public void TestLongestPalindrome()
+        {
+            ArrayObj.LongestPalidrome("abbaccaxzzyzzccaxyz");
+        }
+        
+        [TestMethod]
         public void TestFindMinInRotatedSortArray()
         {
             int[] a = new int[] { 4, 5, 1, 2, 3 };
             ArrayObj.FindMin(a, 0, a.Length - 1);
-        }
-
-        
-        [TestMethod]
-        public void TestFindString()
-        {
-            //string[][] m = new string[][] {new string[] {"C","B", "E", "C"}, 
-            //                               new string[] {"O", "X", "T", "A"}, 
-            //                               new string[] {"V","X", "D", "E"}};
-
-            string[][] m = new string[][] {new string[] {"O","F", "A", "S"}, 
-                                           new string[] {"L", "L", "Q", "W"}, 
-                                           new string[] {"Z","O", "W", "K"}};
-
-            //ArrayObj.FindStringHelper(m, "XBOX");
-
-            ArrayObj.FindStringHelper(m, "FOLLOW");
         }
 
         [TestMethod]

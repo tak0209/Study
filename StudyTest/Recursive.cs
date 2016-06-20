@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StudyTest;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -403,7 +404,7 @@ namespace StudyTest
             FindBracketSet(n - 1, powerSet);
 
             List<String> newCombos = new List<String>();
-            for (int i=0; i<powerSet.Count;i++)
+            for (int i = 0; i < powerSet.Count; i++)
             {
                 newCombos.Add("{" + powerSet[i] + "}");
                 newCombos.Add("{}" + powerSet[i]);
@@ -417,16 +418,17 @@ namespace StudyTest
 
         public static void Brackets(int n)
         {
-            for (int i = 1; i <= n; i++)
-            {
-                Brackets("", 0, 0, i);
-                //Debug.Print("-----------------------");
-            }
+            BracketsHelper("", 0, 0, 2);
+            //for (int i = 1; i <= n; i++)
+            //{
+            //    Brackets("", 0, 0, i);
+            //    //Debug.Print("-----------------------");
+            //}
         }
 
         //http://www.geeksforgeeks.org/print-all-combinations-of-balanced-parentheses/
         //Catalan number concept behind this https://www.youtube.com/watch?v=m9Khxn2g-6w
-        private static void Brackets(string output, int open, int close, int pairs)
+        private static void BracketsHelper(string output, int open, int close, int pairs)
         {
             if ((open == pairs) && (close == pairs))
             {
@@ -435,10 +437,10 @@ namespace StudyTest
             else
             {
                 if (open < pairs)
-                    Brackets(output + "(", open + 1, close, pairs);
+                    BracketsHelper(output + "(", open + 1, close, pairs);
 
                 if (close < open)
-                    Brackets(output + ")", open, close + 1, pairs);
+                    BracketsHelper(output + ")", open, close + 1, pairs);
             }
         }
 
@@ -585,15 +587,15 @@ namespace StudyTest
         //algo: recursive call to all 8 direction, if false return and back track (remove the last move from the origin of first caller)
         public static bool WordPuzzle(char[,] b, string input, List<position> route)
         {
-            //find the first char
-            for (int i=0; i< b.GetLength(0); i++)
+            //iterate the matrix to find the first char (the starting point (cell) of the target string)
+            for (int i = 0; i < b.GetLength(0); i++)
             {
-                for (int j=0; j< b.GetLength(1); j++)
+                for (int j = 0; j < b.GetLength(1); j++)
                 {
-                    if (b[i,j]== input[0])
+                    if (b[i, j] == input[0])            //find the cell of the 1st char of the string
                     {
-                        route.Add(new position(i, j));
-                        return WordPuzzleUtil(b, input, 1, i, j, route);
+                        route.Add(new position(i, j));  //add to the route since it's the 1st char
+                        return WordPuzzleUtil(b, input, 1, i, j, route);    //find the rest of the string
                     }
                 }
             }
@@ -603,19 +605,20 @@ namespace StudyTest
 
         public static bool WordPuzzleUtil(char[,] b, string input, int charIdx, int row, int col, List<position> route)
         {
-            while (input.Length> charIdx)
+            while (input.Length > charIdx)
             {
-                if (!nextMove(b, input, charIdx, ref row, ref col, route))
+                if (!nextMove(b, input, charIdx, ref row, ref col, route))  //Can we find the next char?
                 {
                     return false;
                 }
 
-                charIdx++;
+                charIdx++;  //continue to the next char
             }
 
             return true;
         }
 
+        //This is a simple function to check for all directions (8 is it's current not at the edge of the matrix)
         private static bool nextMove(char[,] b, string input, int charIdx, ref int row, ref int col, List<position> route)
         {
             char targetChar = input[charIdx];
@@ -623,56 +626,56 @@ namespace StudyTest
             int maxCol = maxRow;
 
             //check next row; same col
-            if (row+1 <= maxRow && b[row+1, col] == targetChar)
+            if (row + 1 <= maxRow && b[row + 1, col] == targetChar)
             {
                 route.Add(new position(++row, col));
                 return true;
             }
 
             //check upper row; same col
-            if (row-1 >= 0&& b[row-1, col] == targetChar)
+            if (row - 1 >= 0 && b[row - 1, col] == targetChar)
             {
                 route.Add(new position(--row, col));
                 return true;
             }
 
             //check next col; same row
-            if (col+1 <= maxCol && b[row, col+1] == targetChar)
+            if (col + 1 <= maxCol && b[row, col + 1] == targetChar)
             {
                 route.Add(new position(row, ++col));
                 return true;
             }
 
             //check left side col; same row
-            if (col-1 >= 0&& b[row, col-1] == targetChar)
+            if (col - 1 >= 0 && b[row, col - 1] == targetChar)
             {
                 route.Add(new position(row, --col));
                 return true;
             }
 
             //check upper left corner
-            if (row-1 >= 0&&  col-1 >= 0&& b[row-1, col-1] == targetChar)
+            if (row - 1 >= 0 && col - 1 >= 0 && b[row - 1, col - 1] == targetChar)
             {
                 route.Add(new position(--row, --col));
                 return true;
             }
 
             //check lower left corner
-            if (row+1 <= maxRow && col-1 >= 0&& b[row+1, col-1] == targetChar)
+            if (row + 1 <= maxRow && col - 1 >= 0 && b[row + 1, col - 1] == targetChar)
             {
                 route.Add(new position(++row, --col));
                 return true;
             }
 
             //check upper right corner
-            if (row-1 >= 0&& col+1 <= maxCol && b[row-1, col+1] == targetChar)
+            if (row - 1 >= 0 && col + 1 <= maxCol && b[row - 1, col + 1] == targetChar)
             {
                 route.Add(new position(--row, ++col));
                 return true;
             }
 
             //check lower right corner
-            if (row+1 <= maxRow && col+1 <= maxCol && b[row+1, col+1] == targetChar)
+            if (row + 1 <= maxRow && col + 1 <= maxCol && b[row + 1, col + 1] == targetChar)
             {
                 route.Add(new position(++row, ++col));
                 return true;
@@ -731,6 +734,63 @@ namespace StudyTest
             return pIdx;
         }
 
+        public static List<Path> findShortestTrainPath(Station s, Station e)
+        {
+            int min = -1;
+            List<Path> finalPath = null;
+            foreach (Train t in s.trains)
+            {
+                foreach (Path p in t.paths)
+                {
+                    List<Path> allPaths = new List<Path>();
+                    if (findPath(p.end, e, allPaths))
+                    {
+                        if (min == -1)
+                        {
+                            min = allPaths.Count;
+                        }
+                        else
+                        {
+                            if (allPaths.Count < min)
+                            {
+                                min = allPaths.Count;
+                                finalPath = allPaths;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return (finalPath);
+        }
+
+        private static bool findPath(Station s, Station e, List<Path> allPaths)
+        {
+            if (s.name == e.name)
+                return true;
+
+            foreach (Train t in s.trains)
+            {
+                foreach (Path p in t.paths)
+                {
+                    if (p.end == e)
+                    {
+                        allPaths.Add(p);
+                        if (findPath(p.end, e, allPaths))
+                        {
+                            return true;
+                        }
+
+                        allPaths.RemoveAt(allPaths.Count() - 1);
+                        return false;
+                    }
+                }
+
+            }
+            return false;
+        }
+
+        //Swap 2 integer variable
         private static void swapInt2(ref int v1, ref int v2)
         {
             int temp = v1;

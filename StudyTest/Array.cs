@@ -28,7 +28,7 @@ namespace StudyTest
 
             int mid = low + (high - low) / 2;
 
-            // 3 4 5 1 2  (is the element after min is the rotation(minimum)  i > i + 1)
+            // 3 4 5 1 2  (is the element after mid is the rotation(minimum)  i > i + 1)
             if (a[mid] > a[mid + 1])
             {
                 Debug.Print("min {0} @ {1}", a[mid + 1].ToString(), mid + 1);
@@ -54,123 +54,6 @@ namespace StudyTest
             }
         }
 
-
-        public static void FindStringHelper(string[][] m, string search)
-        {
-            //ArrayObj.FindString(m, "", "CAT", 0, 0);
-            bool[][] visited = { new bool[] { false, false, false, false },
-                               new bool[] { false, false, false, false } ,
-                               new bool[] { false, false, false, false } 
-                               };
-
-            for (int r = 0; r < m.Length; r++)
-            {
-                for (int c = 0; c < m[0].Length; c++)
-                {
-                    if (m[r][c] == search[0].ToString())
-                    {
-                        visited[r][c] = true;
-                        var path = "[" + r + "," + c + "]";
-                        bool ret = FindString(m, ref path, search, r, c, visited);
-                        visited[r][c] = false;
-                    }
-                }
-            }
-        }
-        //FindString(m, "", "XBOX", 0, 0);
-        public static bool FindString(string[][] m, ref string path, string search, int r, int c, bool[][] visited)
-        {
-            if (search.Length == 1)
-                return true;
-
-            List<matrixPt> a = findNextPath(m, r, c, search[1].ToString());
-            foreach (matrixPt n in a)
-            {
-                if (!visited[n.r][n.c])
-                {
-                    path += "[" + n.r + "," + n.c + "],";
-                    visited[n.r][n.c] = true;
-                    return FindString(m, ref path, search.Substring(1), n.r, n.c, visited);
-                }
-            }
-
-            visited[r][c] = false;
-            return false;
-        }
-
-        private static List<matrixPt> findNextPath(string[][] m, int r, int c, string nextChar)
-        {
-            List<matrixPt> ret = new List<matrixPt>();
-            int row = m.Count() - 1;
-            int col = m[0].Count() - 1;
-
-            if (c + 1 <= col)
-            {
-                if (m[r][c + 1] == nextChar)
-                {
-                    ret.Add(new matrixPt { c = c + 1, r = r });
-                }
-            }
-
-            if (c - 1 >= 0)
-            {
-                if (m[r][c - 1] == nextChar)
-                {
-                    ret.Add(new matrixPt { c = c - 1, r = r });
-                }
-            }
-
-            if (r + 1 <= row)
-            {
-                if (m[r + 1][c] == nextChar)
-                {
-                    ret.Add(new matrixPt { c = c, r = r + 1 });
-                }
-            }
-
-            if (r - 1 >= 0)
-            {
-                if (m[r - 1][c] == nextChar)
-                {
-                    ret.Add(new matrixPt { c = c, r = r - 1 });
-                }
-            }
-
-            if (r + 1 <= row && c + 1 <= col)
-            {
-                if (m[r + 1][c + 1] == nextChar)
-                {
-                    ret.Add(new matrixPt { c = c + 1, r = r + 1 });
-                }
-            }
-
-            if (r - 1 >= 0 && c + 1 <= col)
-            {
-                if (m[r - 1][c + 1] == nextChar)
-                {
-                    ret.Add(new matrixPt { c = c + 1, r = r - 1 });
-                }
-            }
-
-            if (r - 1 >= 0 && c - 1 >= col)
-            {
-                if (m[r - 1][c - 1] == nextChar)
-                {
-                    ret.Add(new matrixPt { c = c - 1, r = r - 1 });
-                }
-            }
-
-            if (r + 1 <= row && c - 1 >= 0)
-            {
-                if (m[r + 1][c - 1] == nextChar)
-                {
-                    ret.Add(new matrixPt { c = c - 1, r = r + 1 });
-                }
-            }
-
-            return ret;
-        }
-
         public static void ReverseSentence(char[] s)
         {
             int end = s.Length - 1;
@@ -190,7 +73,6 @@ namespace StudyTest
             }
 
         }
-
         private static void Reverse(char[] str, int s, int e)
         {
             for (int i = s; i < e; i++)
@@ -243,7 +125,7 @@ namespace StudyTest
             int minPrice = a[0];
             int profit = 0;
 
-            for (int i=1; i< a.Length; i++)
+            for (int i = 1; i < a.Length; i++)
             {
                 profit = Math.Max(profit, a[i] - minPrice);
                 minPrice = Math.Min(minPrice, a[i]);
@@ -280,6 +162,36 @@ namespace StudyTest
                 }
             }
             return max;
+        }
+
+        public static string LongestPalidrome(string s)
+        {
+            int n = s.Length;
+            if (n == 0) return "";
+            string longest = s.Substring(0, 1);  // a single char itself is a palindrome
+            for (int i = 0; i < n - 1; i++)
+            {
+                string p1 = expandAroundCenter(s, i, i);
+                if (p1.Length > longest.Length)
+                    longest = p1;
+
+                string p2 = expandAroundCenter(s, i, i + 1);
+                if (p2.Length > longest.Length)
+                    longest = p2;
+            }
+            return longest;
+        }
+
+        public static string expandAroundCenter(string s, int c1, int c2)
+        {
+            int l = c1, r = c2;
+            int n = s.Length;
+            while (l >= 0 && r <= n - 1 && s[l] == s[r])
+            {
+                l--;
+                r++;
+            }
+            return s.Substring(l + 1, r - l - 1);
         }
     }
 

@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Array.cs" />
     <Compile Include="Graph.cs" />
+    <Compile Include="Support Classes\Station.cs" />
     <Compile Include="Support Classes\GraphNode.cs" />
     <Compile Include="LinkedList.cs" />
     <Compile Include="Matrix.cs" />
@@ -49,6 +50,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Support Classes\LinkNode.cs" />
     <Compile Include="Support Classes\TreeNode.cs" />
+    <Compile Include="Support Classes\Wordnode.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
